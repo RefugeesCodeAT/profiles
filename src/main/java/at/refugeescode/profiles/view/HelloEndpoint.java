@@ -1,5 +1,6 @@
 package at.refugeescode.profiles.view;
 
+import at.refugeescode.profiles.persistence.model.Profiles;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class HelloEndpoint {
     @GetMapping
-    String hello(){
+    String hello(Profiles profiles){
+        profiles.setGithubUrl("github.com/mohammmod");
         return "helloworld";
     }
 }
