@@ -2,8 +2,8 @@ package at.refugeescode.profiles.persistence.model;
 
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
+
 
 @Entity
 public class Profiles {
@@ -14,8 +14,8 @@ public class Profiles {
     private String introduction;
     private byte [] picture;
     private String description;
-   /* @OneToOne(fetch = FetchType.EAGER)
-    private List<String> skills = new ArrayList<>();*/
+    @ElementCollection
+    private List<String> skills;
     private String githubUrl;
 
     public Profiles(){
@@ -62,13 +62,13 @@ public class Profiles {
         this.description = description;
     }
 
-  /*  public List<String> getSkills() {
+    public List<String> getSkills() {
         return skills;
     }
 
     public void setSkills(List<String> skills) {
         this.skills = skills;
-    }*/
+    }
 
     public String getGithubUrl() {
         return githubUrl;
