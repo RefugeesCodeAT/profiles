@@ -1,11 +1,14 @@
 package at.refugeescode.profiles.persistence.model;
 
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import java.util.List;
 
 
 @Entity
+@Component
 public class Profile {
     @Id
     @GeneratedValue
