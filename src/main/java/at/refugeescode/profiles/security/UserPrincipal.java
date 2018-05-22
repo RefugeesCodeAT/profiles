@@ -1,5 +1,4 @@
 package at.refugeescode.profiles.security;
-import at.refugeescode.profiles.persistencae.model.Company;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
