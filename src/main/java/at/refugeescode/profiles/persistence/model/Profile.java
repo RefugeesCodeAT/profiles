@@ -6,19 +6,21 @@ import java.util.List;
 
 
 @Entity
-public class Profiles {
+public class Profile {
     @Id
     @GeneratedValue
     private Long id;
     private String name;
     private String introduction;
+    private String picPath;
+    @Lob
     private byte [] picture;
     private String description;
     @ElementCollection
     private List<String> skills;
     private String githubUrl;
 
-    public Profiles(){
+    public Profile(){
     }
 
     public Long getId() {
@@ -76,5 +78,13 @@ public class Profiles {
 
     public void setGithubUrl(String githubUrl) {
         this.githubUrl = githubUrl;
+    }
+
+    public String getPicPath() {
+        return picPath;
+    }
+
+    public void setPicPath(String picPath) {
+        this.picPath = picPath;
     }
 }

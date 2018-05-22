@@ -1,5 +1,8 @@
 package at.refugeescode.profiles.controller;
 
+import at.refugeescode.profiles.logic.ProfileService;
+import at.refugeescode.profiles.persistence.model.Profile;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,6 +20,17 @@ import java.util.List;
 @Controller
 public class profileController {
 
+    ProfileService profileService;
+    Profile profile;
+
+    public profileController(ProfileService profileService) {
+      this.profileService=profileService;
+    }
+
+
+
+    @Value("${pathFile}")
+    private String pathFile;
 
     @GetMapping("/addParticipant")
     String page(){
@@ -31,7 +45,7 @@ public class profileController {
 
     @ModelAttribute("allList")
     List<Profile> getAllParticipant(){
-        return profilesRepository.findAll();
+        return profileService.findAll();
     }
 
 
@@ -39,16 +53,17 @@ public class profileController {
     String addParticipant(Profile participant, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes){
         if (!file.isEmpty()) {
             try {
-                String UPLOADED_FOLDER = "C:\\Users\\Mohammad\\Projects\\profiles-project-demo\\src\\main\\resources\\static\\images";
+                String UPLOADED_FOLDER = "/home/mohammad/Programming/profiles/src/main/resources/static/images";
                 byte[] bytes = file.getBytes();
                 File serverFile = new File(UPLOADED_FOLDER+File.separator+ file.getOriginalFilename());
                 BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();
-                participant.setImage(file.getOriginalFilename());
-                this.profile=profile;
+                participant.setPicture(bytes);
+                participant.setPicPath(file.getOriginalFilename());
+                this.profile=participant;
 
-                profilesRepository.save(this.participant);
+                profileService.saveProfile(profile);
                 redirectAttributes.addFlashAttribute("flash.message","Successfully uploaded");
 
             } catch (Exception e) {

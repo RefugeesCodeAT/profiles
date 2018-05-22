@@ -1,4 +1,4 @@
-package at.refugeescode.profiles.persistencae.model;
+package at.refugeescode.profiles.persistence.model;
 
 import javax.persistence.*;
 import java.util.HashSet;

@@ -10,6 +10,7 @@
 <body>
 <h1 class="adding">Add Participant</h1>
 <form th:action="@{/addParticipant}" th:object="${newParticipant}" method="post" enctype="multipart/form-data" >
+    uploadPhoto: <input type="file" name="file">
     name: <input type="text" th:field="*{name}" />
     introduction: <input type="text" th:field="*{introduction}" />
     description: <input type="text" th:field="*{description}" />

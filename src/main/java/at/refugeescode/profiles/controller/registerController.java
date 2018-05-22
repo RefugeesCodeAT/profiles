@@ -1,6 +1,7 @@
 package at.refugeescode.profiles.controller;
 
 
+import at.refugeescode.profiles.persistence.model.Company;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,7 @@ import java.util.stream.Stream;
 public class registerController {
 
 
-    @GetMapping("/addCompany")
+   /* @GetMapping("/addCompany")
     String page4(){
         return "addCompany";
     }
@@ -39,7 +40,7 @@ public class registerController {
         company.setAuthorities(Stream.of("USER").collect(Collectors.toSet()));
         companyRepository.save(company);
         return "redirect:/";
-    }
+    }*/
 
 
 
