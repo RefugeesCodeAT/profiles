@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <title>Home</title>
+</head>
+<body>
+<h1 class="adding">Add Participant</h1>
+<form th:action="@{/addParticipant}" th:object="${newParticipant}" method="post" enctype="multipart/form-data" >
+    name: <input type="text" th:field="*{name}" />
+    introduction: <input type="text" th:field="*{introduction}" />
+    description: <input type="text" th:field="*{description}" />
+    githubUrl: <input type="text" th:field="*{githubUrl}" />
+    skills: <input type="text" th:field="*{skills}" />
+
+    <br />
+    <input type="submit" value="Add Participant">
+</form>
+
+</body>
+</html>
