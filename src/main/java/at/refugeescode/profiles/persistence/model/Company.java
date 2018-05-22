@@ -1,21 +1,38 @@
 package at.refugeescode.profiles.persistence.model;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@Component
 public class Company {
 
     @Id
     @GeneratedValue
     private Long id;
+
+    @NotEmpty
     private String name;
+
+    private String username;
+
     private String password;
+
     private String email;
 
-    public Company() {
+    public String getEmail() {
+        return email;
     }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<String> authorities = new HashSet();
 
     public Long getId() {
         return id;
@@ -33,6 +50,14 @@ public class Company {
         this.name = name;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -41,11 +66,11 @@ public class Company {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public Set<String> getAuthorities() {
+        return authorities;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setAuthorities(Set<String> authorities) {
+        this.authorities = authorities;
     }
 }

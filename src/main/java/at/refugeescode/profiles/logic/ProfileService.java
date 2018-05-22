@@ -9,6 +9,7 @@ import java.util.List;
 
 @Service
 public class ProfileService {
+
     private ProfilesRepository profileRepository;
 
     private Profile profile;
@@ -24,7 +25,5 @@ public class ProfileService {
     public List<Profile> findAll(){
         return   profileRepository.findAll();
     }
-
-
 
 }
