@@ -31,10 +31,10 @@ public class profileController {
         return "addParticipant";
     }
 
-    @GetMapping("/")
-    String page1(){
-        return "showParticipants";
-    }
+    //@GetMapping("/")
+    //String page1(){
+      //  return "showParticipants";
+    //}
 
 
     @ModelAttribute("newParticipant")

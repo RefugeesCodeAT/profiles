@@ -33,9 +33,9 @@ public class SecurityConfigurationCompany extends WebSecurityConfigurerAdapter {
                 .antMatchers("/edit/**").hasAuthority("ADMIN")
                 .anyRequest().fullyAuthenticated()
                 .and()
-                .formLogin().loginPage("/login").failureUrl("/login?error").permitAll()
+                .formLogin().loginPage("/login").failureUrl("/").permitAll()
                 .and()
-                .logout().permitAll();
+                .logout().logoutSuccessUrl("/");
     }
 
 
