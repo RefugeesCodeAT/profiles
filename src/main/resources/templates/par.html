@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <title>W3.CSS Template</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,7 +17,7 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-bar-block w3-white w3-animate-left w3-text-grey w3-collapse w3-top w3-center" style="z-index:3;width:300px;font-weight:bold" id="mySidebar"><br>
 <a href="#" style="text-decoration:none">
-  <img src="../static/img/logo.png" width="200" height="160" border="0">
+  <img th:src="@{https://lh6.googleusercontent.com/oQnzVt0v6UHMmGB_XBuAyYssFn3vXFviURrBbKVGh5l0z54Sg-PlBqeB4CbC2Q8GMjW0S_aDnE4veg=w1920-h948}" width="200" height="160" border="0">
 </a>  
   <br><br>
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-hide-large">CLOSE</a>
@@ -48,8 +48,13 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <div class="w3-row">
     
     <div class="w3-quarter">
-      <div class="w3-display-container">
-      <img id="wael" src="../static/img/photo/02_Wael Azar-01.jpg" style="width:100%" onclick="onClick(this)" alt="Wael Azar - Backend Developer">
+      <div class="w3-display-container" >
+      <img id="wael" th:src="@{https://yt3.ggpht.com/a-/AJLlDp0Hr9DZLrz_GgOPcdjx_dumOnHj3SudHgUeFg=s900-mo-c-c0xffffffff-rj-k-no}" style="width:100%" onclick="onClick(this)" alt="Wael Azar - Backend Developer">
+        <ul th:each="list : ${allList}">
+          <li th:text="${list.name}">
+
+          </li>
+        </ul>
       <!-- w3-display-hover -->
       <div class="w3-display-bottommiddle w3-large">
       <p>
@@ -58,10 +63,7 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
       </p>
       </div>
     </div>
-
-
-
-      <img src="../static/img/photo/05_Nour Allah-01.jpg" style="width:100%" onclick="onClick(this)" alt="What a beautiful scenery this sunset">
+      <img th:src="@{https://avatars0.githubusercontent.com/u/9071674?s=400&v=4}" style="width:100%" onclick="onClick(this)" alt="What a beautiful scenery this sunset">
       <img src="../static/img/photo/17_Mohammad-Ghiath-02.jpg" style="width:100%" onclick="onClick(this)" alt="The Beach. Me. Alone. Beautiful">
 	  <img src="../static/img/photo/03_Rami Horan-02.jpg" style="width:100%" onclick="onClick(this)" alt="The Beach. Me. Alone. Beautiful">
     </div>

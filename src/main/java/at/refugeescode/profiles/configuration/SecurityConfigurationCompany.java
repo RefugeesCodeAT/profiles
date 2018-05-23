@@ -26,16 +26,17 @@ public class SecurityConfigurationCompany extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .antMatchers("/").permitAll()
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                .antMatchers("/profiles").permitAll()
                 .antMatchers("/addCompany/**").permitAll()
                 .antMatchers("/addParticipant/**").hasAuthority("ADMIN")
                 .antMatchers("/edit/**").hasAuthority("ADMIN")
                 .anyRequest().fullyAuthenticated()
                 .and()
-                .formLogin().loginPage("/login").failureUrl("/login?error").permitAll()
+                .formLogin().loginPage("/login").failureUrl("/").permitAll()
                 .and()
-                .logout().permitAll();
+                .logout().logoutSuccessUrl("/");
     }
 
 
