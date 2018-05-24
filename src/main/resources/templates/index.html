@@ -20,7 +20,7 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <nav class="w3-sidebar w3-bar-block w3-white w3-animate-left w3-text-grey w3-collapse w3-top w3-center" style="z-index:3;width:300px;font-weight:bold" id="mySidebar"><br>
 <a href="#" style="text-decoration:none">
   <!--img src="static\img\logo.png" width="200" height="160" border="0"-->
-  <img th:src="@{https://lh6.googleusercontent.com/oQnzVt0v6UHMmGB_XBuAyYssFn3vXFviURrBbKVGh5l0z54Sg-PlBqeB4CbC2Q8GMjW0S_aDnE4veg=w1920-h948}" width="200" height="160" border="0"/>
+  <img th:src="@{/images/logo.png}" width="200" height="160" border="0"/>
 </a>
   <br><br>
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-hide-large">CLOSE</a>
@@ -29,7 +29,7 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <a href="/addParticipant" sec:authorize="hasAuthority('ADMIN')" onclick="w3_close()" class="w3-bar-item w3-button">ADD PROFILE</a>
   <a href="#" onclick="w3_close()" sec:authorize="hasAuthority('USER')" class="w3-bar-item w3-button">CONTACT</a>
   <a href="#" sec:authorize="isAnonymous()" onclick="document.getElementById('id01').style.display='block'" class="w3-bar-item w3-button">Sign In</a>
-  <a href="/addCompany" sec:authorize="isAnonymous()" onclick="document.getElementById('id02').style.display='block'" class="w3-bar-item w3-button">Sign Up</a>
+  <a href="#" sec:authorize="isAnonymous()" onclick="document.getElementById('id02').style.display='block'" class="w3-bar-item w3-button">Sign Up</a>
   <form th:action="@{/logout}" method="POST" name="someForm">
     <a href="#" onclick="document.someForm.submit();" class="w3-bar-item w3-button" sec:authorize="isAuthenticated()">LogOut</a>
   </form>
@@ -69,7 +69,7 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <!-- About section -->
   <div class="w3-container w3-dark-grey w3-center w3-text-light-grey w3-padding-32" id="about" >
     <h4><b>About Us</b></h4>
-    <img th:src="@{https://lh4.googleusercontent.com/zjZukolT-rrfYHCTRUWyvup6hQ7Lpzs9eNH-wRsxIl6ERLr3TyOG6VY7dHaPQS0H7Nj8PyREThNJejRA71ig=w1920-h948-rw}" alt="Me" class="w3-image w3-padding-32" width="600" height="650">
+    <img th:src="@{/images/team.jpg}" alt="Me" class="w3-image w3-padding-32" width="600" height="650">
     <div class="w3-content w3-justify" style="max-width:600px">
       <p>
       refugees{code} is a non-profit association and offers refugees a program to develop coding and software development skills.
