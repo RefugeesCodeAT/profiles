@@ -56,14 +56,19 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <!-- Photo grid -->
     <!-- Photo grid -->
     <div class="w3-row" >
-
-        <div class="w3-quarter" th:each="list : ${allList}">
+        <div class="w3-quarter" th:each="profile : ${profiles}">
             <div class="w3-display-container col-sm-4">
-                <img id="wael" th:src="@{${'/img/' + list.picPath}}" style="width:100%" onclick="onClick(this)"
-                     alt="Diaa Alkhatib - Backend Developer">
+
+                <form th:action="@{/profile/{id}(id=${profile.id})}" th:method="get" name="someForm">
+                    <!--<p style="display:none"><input type="text" name="idParticipant" th:value="${profile.id}"/></p>-->
+                    <button><img th:src="@{${'/images/' + profile.picPath}}" style="width:100%" alt="blue"></button>
+               <!--<img id="wael" th:src="@{${'/img/' + profile.picPath}}" style="width:100%"
+                                                                      alt="Diaa Alkhatib - Backend Developer">-->
+                </form>
+
                 <!-- w3-display-hover -->
                 <div class="w3-display-bottommiddle w3-large">
-                    <p th:text="${list.name}">Diaa Alkhatib<br/>
+                    <p th:text="${profile.name}">Diaa Alkhatib<br/>
                         <br/>
                     </p>
                 </div>

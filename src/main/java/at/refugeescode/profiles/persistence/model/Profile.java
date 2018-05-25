@@ -1,14 +1,11 @@
 package at.refugeescode.profiles.persistence.model;
 
 
-import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
 import java.util.List;
 
 
 @Entity
-@Component
 public class Profile {
     @Id
     @GeneratedValue
@@ -17,13 +14,13 @@ public class Profile {
     private String introduction;
     private String picPath;
     @Lob
-    private byte [] picture;
+    private byte[] picture;
     private String description;
     @ElementCollection
     private List<String> skills;
     private String githubUrl;
 
-    public Profile(){
+    public Profile() {
     }
 
     public Long getId() {
