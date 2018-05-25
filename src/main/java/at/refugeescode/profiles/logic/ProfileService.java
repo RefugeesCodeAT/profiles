@@ -6,13 +6,12 @@ import at.refugeescode.profiles.persistence.repository.ProfilesRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProfileService {
 
     private ProfilesRepository profileRepository;
-
-    private Profile profile;
 
     public ProfileService(ProfilesRepository profileRepository) {
         this.profileRepository = profileRepository;
@@ -24,6 +23,10 @@ public class ProfileService {
 
     public List<Profile> findAll(){
         return   profileRepository.findAll();
+    }
+
+    public Optional<Profile> findOne(Long id){
+        return profileRepository.findById(id);
     }
 
 }

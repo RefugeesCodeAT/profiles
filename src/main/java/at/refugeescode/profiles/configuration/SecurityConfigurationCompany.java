@@ -29,7 +29,7 @@ public class SecurityConfigurationCompany extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .antMatchers("/profiles").permitAll()
-                .antMatchers("/**").permitAll()
+                .antMatchers("/profile/**").permitAll()
                 .antMatchers("/addCompany/**").permitAll()
                 .antMatchers("/addParticipant/**").hasAuthority("ADMIN")
                 .antMatchers("/edit/**").hasAuthority("ADMIN")
