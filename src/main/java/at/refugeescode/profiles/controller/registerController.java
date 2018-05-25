@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.stream.Collectors;
@@ -20,31 +21,36 @@ public class registerController {
 
     private PasswordEncoder passwordEncoder;
 
-    public registerController(CompanyService companyService, PasswordEncoder passwordEncoder) {
+    private Company company;
+
+    public registerController(CompanyService companyService, PasswordEncoder passwordEncoder, Company company) {
         this.companyService = companyService;
         this.passwordEncoder = passwordEncoder;
+        this.company = company;
     }
 
-    @GetMapping("/addCompany")
-    String page4(){
-        return "addCompany";
-    }
+   // @GetMapping("/addCompany")
+    //String page4(){
+      //  return "addCompany";
+   // }
 
 
-    @ModelAttribute("newCompany")
-    Company getNewCompany(){
-        return new Company();
-    }
+ //   @ModelAttribute("newCompany")
+   // Company getNewCompany(){
+     //   return new Company();
+   // }
 
     @PostMapping("addCompany")
-    String addCompany(@Valid Company company , BindingResult bindingResult){
+    String addCompany(@RequestParam String username,@RequestParam String companyName
+    ,@RequestParam String password,@RequestParam String email){
 //        if (bindingResult.hasErrors()) {
 //            return page4();
 //        }
-        company.setUsername(company.getUsername());
-        company.setEmail(company.getEmail());
-        company.setName(company.getName());
-        company.setPassword(passwordEncoder.encode(company.getPassword()));
+        System.out.println(username);
+        company.setUsername(username);
+        company.setEmail(email);
+        company.setName(companyName);
+        company.setPassword(passwordEncoder.encode(password));
         company.setAuthorities(Stream.of("USER").collect(Collectors.toSet()));
         companyService.saveCompany(company);
         return "redirect:/";

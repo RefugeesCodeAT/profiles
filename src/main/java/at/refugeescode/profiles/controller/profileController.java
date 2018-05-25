@@ -36,10 +36,7 @@ public class profileController {
         return "addParticipant";
     }
 
-    //@GetMapping("/")
-    //String page1(){
-      //  return "showParticipants";
-    //}
+
 
 
     @ModelAttribute("newParticipant")
@@ -72,7 +69,7 @@ public class profileController {
 
             } catch (Exception e) {
                 redirectAttributes.addFlashAttribute("flash.message","Failed to upload");
-                return "You failed to upload " + " => " + e.getMessage();
+                return "You failed to upload because " + " => " + e.getMessage();
             }
 
         return "redirect:/profiles";
