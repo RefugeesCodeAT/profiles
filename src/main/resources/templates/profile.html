@@ -324,7 +324,7 @@ abbr    {
 
                 <!-- Begin Profile Image Section -->
                 <div class="header_1" >
-                    <img th:src="@{${'/images/' + profile.picPath}}" height="300" width="400"  style="width:100%" alt="Your Name" />
+                    <img th:src="@{../imageController/{id}(id=${profile.id})}" height="300" width="400"  style="width:100%" alt="Your Name" />
                 </div>
                 <!-- End Profile Image Section -->
 

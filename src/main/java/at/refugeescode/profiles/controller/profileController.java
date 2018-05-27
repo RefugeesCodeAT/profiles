@@ -29,12 +29,6 @@ public class profileController {
         return "addParticipant";
     }
 
-
-//    @GetMapping("/profile")
-//    String profilePage(){
-//        return "profile";
-//    }
-
     @GetMapping("/profile/{id}")
     String page(@PathVariable Long id, Model model) {
         Optional<Profile> profile = profileService.findOne(id);
@@ -51,7 +45,6 @@ public class profileController {
         return new Profile();
     }
 
-
     @ModelAttribute("participants")
     List<Profile> getOneParticipant() {
         return profileService.findAll();
@@ -59,31 +52,15 @@ public class profileController {
 
     @PostMapping("addParticipant")
     String addParticipant(@RequestParam("file") MultipartFile file, Profile profile, RedirectAttributes redirectAttributes) {
-        String uploadRootPath = "src\\main\\resources\\static\\images";
-
-        File uploadRootDir = new File(uploadRootPath);
-        if (!uploadRootDir.exists()) {
-            uploadRootDir.mkdirs();
-        }
         try {
-            byte[] bytes = new byte[0];
-            bytes = file.getBytes();
-            File serverFile = new File(uploadRootDir.getAbsolutePath() + File.separator + file.getOriginalFilename());
-            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-            stream.write(bytes);
-            stream.close();
+            byte[] bytes = file.getBytes();
             profile.setPicture(bytes);
-            profile.setPicPath(file.getOriginalFilename());
             profileService.saveProfile(profile);
             redirectAttributes.addFlashAttribute("flash.message", "Successfully uploaded");
-
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("flash.message", "Failed to upload");
             return "You failed to upload because " + " => " + e.getMessage();
         }
-
         return "redirect:/profiles";
     }
-
-
 }
