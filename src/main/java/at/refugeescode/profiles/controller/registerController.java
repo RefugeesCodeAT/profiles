@@ -29,24 +29,10 @@ public class registerController {
         this.company = company;
     }
 
-   // @GetMapping("/addCompany")
-    //String page4(){
-      //  return "addCompany";
-   // }
-
-
- //   @ModelAttribute("newCompany")
-   // Company getNewCompany(){
-     //   return new Company();
-   // }
 
     @PostMapping("addCompany")
     String addCompany(@RequestParam String username,@RequestParam String companyName
     ,@RequestParam String password,@RequestParam String email){
-//        if (bindingResult.hasErrors()) {
-//            return page4();
-//        }
-        System.out.println(username);
         company.setUsername(username);
         company.setEmail(email);
         company.setName(companyName);

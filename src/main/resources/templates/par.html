@@ -62,7 +62,7 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
 
                 <!--<p style="display:none"><input type="text" name="idParticipant" th:value="${profile.id}"/></p>-->
-               <a th:href="@{/profile/{id}(id=${profile.id})}"> <img th:src="@{http://localhost:8080/imageController/{id}(id=${profile.id})}" style="width:100%"
+               <a th:href="@{/profile/{id}(id=${profile.id})}"> <img th:src="@{../imageController/{id}(id=${profile.id})}" style="width:100%"
                      alt="blue"/></a>
                 <!--<img id="wael" th:src="@{${'/img/' + profile.picPath}}" style="width:100%"
                                                                        alt="Diaa Alkhatib - Backend Developer">-->
