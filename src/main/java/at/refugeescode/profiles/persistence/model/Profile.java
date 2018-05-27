@@ -12,7 +12,7 @@ public class Profile {
     private Long id;
     private String name;
     private String introduction;
-    private String picPath;
+    private String specialization;
     @Lob
     private byte[] picture;
     private String description;
@@ -80,11 +80,11 @@ public class Profile {
         this.githubUrl = githubUrl;
     }
 
-    public String getPicPath() {
-        return picPath;
+    public String getSpecialization() {
+        return specialization;
     }
 
-    public void setPicPath(String picPath) {
-        this.picPath = picPath;
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
     }
 }

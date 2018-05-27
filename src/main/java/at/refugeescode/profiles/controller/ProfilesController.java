@@ -26,10 +26,6 @@ public class ProfilesController {
 
     @ModelAttribute("profiles")
     List<Profile> profiles(){
-        List<Profile> all = profileService.findAll();
-        System.out.println("-----------------------------------\nwe are here \n");
-        all.forEach(oneRow -> System.out.println(oneRow.getPicPath()));
-
-        return all;
+        return profileService.findAll();
     }
 }
