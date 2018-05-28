@@ -37,7 +37,7 @@ public class profileController {
             return "redirect:/profiles";
         }
         model.addAttribute("profile", profile.get());
-        return "profile";
+        return "par-profile";
     }
 
 
