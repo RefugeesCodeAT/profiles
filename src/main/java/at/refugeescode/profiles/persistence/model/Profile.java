@@ -20,6 +20,10 @@ public class Profile {
     private List<String> skills;
     private String githubUrl;
 
+    public Profile(String name) {
+        this.name = name;
+    }
+
     public Profile() {
     }
 
