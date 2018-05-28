@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,13 +31,13 @@ public class profileController {
     }
 
     @GetMapping("/profile/{id}")
-    String page(@PathVariable Long id, Model model) {
+    String findProfileById(@PathVariable Long id, Model model) {
         Optional<Profile> profile = profileService.findOne(id);
         if (!profile.isPresent()) {
             return "redirect:/profiles";
         }
         model.addAttribute("profile", profile.get());
-        return "profile";
+        return "par-profile";
     }
 
 
@@ -51,10 +52,11 @@ public class profileController {
     }
 
     @PostMapping("addParticipant")
-    String addParticipant(@RequestParam("file") MultipartFile file, Profile profile, RedirectAttributes redirectAttributes) {
+    String addProfile(@RequestParam("file") MultipartFile file, Profile profile, RedirectAttributes redirectAttributes) {
         try {
             byte[] bytes = file.getBytes();
             profile.setPicture(bytes);
+            profile.setSkills(profile.getSkills());
             profileService.saveProfile(profile);
             redirectAttributes.addFlashAttribute("flash.message", "Successfully uploaded");
         } catch (Exception e) {

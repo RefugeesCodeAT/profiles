@@ -29,4 +29,8 @@ public class ProfileService {
         return profileRepository.findById(id);
     }
 
+    public Optional<Profile> findOneByUsername(String name){
+        return profileRepository.findOneByName(name);
+    }
+
 }
