@@ -19,6 +19,7 @@ public class Profile {
     @ElementCollection
     private List<String> skills;
     private String githubUrl;
+    private String bio;
 
     public Profile(String name) {
         this.name = name;
@@ -90,5 +91,13 @@ public class Profile {
 
     public void setSpecialization(String specialization) {
         this.specialization = specialization;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 }
