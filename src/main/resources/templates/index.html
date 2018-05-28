@@ -80,13 +80,23 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
       </p>
       
 
-      <div style="text-align:center" name="par">
-      <a href='/'>
-      <img src="../static/img/par.png" 
-        onmouseover="this.src='../static/img/par-active.png'"
-        onmouseout="this.src='../static/img/par.png'"
-        border="0" alt=""/>
-      </a>
+      <div style="text-align:center">
+      
+      <!--<a href='#' onclick="document.getElementById('id01').style.display='none'">&lt;!&ndash; onclick="document.getElementById('id01').style.display='block'"&ndash;&gt;-->
+      <!--<img src="../static/images/par.png" width="156" height="138" border="0">-->
+      <!--</a>-->
+        <!--<a href="#" >-->
+          <!--<img th:src="@{}" width="156" height="138" border="0">-->
+        <!--</a>-->
+        <a href="/profiles">
+
+        <!--<button type="button" class="btn btn-primary" >see Participants</button>-->
+          <img th:src="@{/images/par.png}"
+            onmouseover="this.src='../static/img/par-active.png'"
+            onmouseout="this.src='../static/img/par.png'"/>
+        </a>
+
+
 
       </div>
       <br><br><br><br><br><br><br><br><br><br>
