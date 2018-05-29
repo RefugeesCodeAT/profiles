@@ -80,9 +80,8 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
             <div class="w3-container">
               <p ><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Name:<span th:text="${profile.name}"></span></p>
               <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>Location: Austria, wien</p>
-              <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i><a th:href="@{https://{path}(path=(profile.githubUrl)}">GitHub</a></p>
-  //
-              <!--<p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>ex@mail.com</p>-->
+              <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i><a th:href="@{'https://' + *{profile.githubUrl}}">GitHub account</a></p>
+              <!--<p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>ex@mail.com</p> @{*{profile.githubUrl}} -->
               <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>refugeescode number</p>
               <hr>
     
@@ -141,10 +140,10 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         	onmouseout="this.src='../images/interested.png'" width="63" height="63" title="interested" border="0" alt=""/>
             </a>
             </div>
-            <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i></h2>
+            <!--<h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i></h2>-->
             <div class="w3-container">
               <h5 class="w3-opacity"><b >Introduction: </b></h5>
-              <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Jan 2015 - <span class="w3-tag w3-teal w3-round">Current</span></h6>
+              <!--<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Jan 2015 - <span class="w3-tag w3-teal w3-round">Current</span></h6>-->
               <p th:text="${profile.introduction}"></p>
               <hr>
             </div>
@@ -166,7 +165,7 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
             <div class="w3-container">
               <!--<h5 class="w3-opacity"><b>W3Schools.com</b></h5>-->
               <!--<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Forever</h6>-->
-              <p>Web Development! All I need to know in one place what what are we doing can i do it like this or not or what should i do for the end how is our life going on and how am i sppusosf todafsi  </p>
+              <p th:text="${profile.bio}">Web Development! All I need to know in one place what what are we doing can i do it like this or not or what should i do for the end how is our life going on and how am i sppusosf todafsi  </p>
               <hr>
             </div>
             <!--<div class="w3-container">-->
