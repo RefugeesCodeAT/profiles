@@ -22,7 +22,7 @@ public class LoadingImage {
     @RequestMapping(value = "/imageController/{imageId}")
     @ResponseBody
     @GetMapping
-    public void helloWorld(@PathVariable long imageId, HttpServletResponse response,
+    public void loadingImage(@PathVariable long imageId, HttpServletResponse response,
                            HttpServletRequest request) throws IOException {
         byte[] picture = profileService.findOne(imageId).get().getPicture();
         response.setContentType("image/jpeg");
