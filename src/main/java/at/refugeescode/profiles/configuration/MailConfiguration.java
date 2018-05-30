@@ -5,6 +5,7 @@
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.ApplicationRunner;
 //import org.springframework.context.annotation.Bean;
+import at.refugeescode.profiles.ProfilesApplication;
 //
 //
 ////@Configuration
