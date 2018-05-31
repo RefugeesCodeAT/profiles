@@ -31,10 +31,9 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <a href="/login" sec:authorize="isAnonymous()" class="w3-bar-item w3-button">Sign In</a>
   <!--<a href="#" sec:authorize="isAnonymous()" onclick="document.getElementById('id02').style.display='block'"-->
      <!--class="w3-bar-item w3-button">Sign Up</a>-->
-  <form th:action="@{/logout}" method="POST" name="someForm">
-    <a href="#" onclick="document.someForm.submit();" class="w3-bar-item w3-button"
-       sec:authorize="isAuthenticated()">LogOut</a>
-  </form>
+    <form th:action="@{/logout}" method="POST" name="someForm">
+        <a href="#" onclick="document.someForm.submit();" class="w3-bar-item w3-button" sec:authorize="isAuthenticated()">LogOut</a>
+    </form>
 </nav>
 
 <!-- Top menu on small screens -->

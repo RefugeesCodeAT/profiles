@@ -32,10 +32,9 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
        class="w3-bar-item w3-button">Sign In</a>
     <!--<a href="#" sec:authorize="isAnonymous()" onclick="document.getElementById('id02').style.display='block'"-->
        <!--class="w3-bar-item w3-button">Sign Up</a>-->
-    <form th:action="@{/logout}" method="POST" name="someForm">
-        <a href="#" onclick="document.someForm.submit();" class="w3-bar-item w3-button"
-           sec:authorize="isAuthenticated()">LogOut</a>
-    </form>
+    <!--<form th:action="@{/logout}" method="POST" name="someForm">-->
+        <!--<a href="#" onclick="document.someForm.submit();" class="w3-bar-item w3-button" sec:authorize="isAuthenticated()">LogOut</a>-->
+    <!--</form>-->
 </nav>
 
 <!-- Top menu on small screens -->
@@ -125,92 +124,6 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         </div>
     </div>
 
-
-
-    <!-- Sign In -->
-    <div id="id01" class="w3-modal">
-        <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
-
-            <div class="w3-center"><br>
-                <span class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
-                <img src="https://www.w3schools.com/w3css/img_avatar3.png" alt="Avatar" style="width:30%"
-                     class="w3-circle w3-margin-top">
-            </div>
-
-            <form class="w3-container" name="form" th:action="@{/login}" action="login" method="POST">
-                <div class="w3-section">
-                    <label><b><span style="color:black">Username</span></b></label>
-                    <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Username"
-                           name="username" required>
-                    <label><b><span style="color:black">Password</span></b></label>
-                    <input class="w3-input w3-border" type="password" placeholder="Enter Password" name="password"
-                           required>
-                    <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Sign in</button>
-                    <input class="w3-check w3-margin-top" type="checkbox" checked="checked"> <span style="color:black">Remember me</span>
-                </div>
-            </form>
-
-            <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-                <button onclick="document.getElementById('id01').style.display='none'" type="button"
-                        class="w3-button w3-red">Cancel
-                </button>
-                <span class="w3-right w3-padding w3-hide-small">Forgot <a href="#">password?</a></span>
-            </div>
-
-
-        </div>
-    </div>
-</div>
-
-
-
-<!-- Sign Up -->
-<div id="id02" class="w3-modal">
-    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
-
-        <div class="w3-center"><br>
-            <span onclick="document.getElementById('id02').style.display='none'"
-                  class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
-            <img th:src="@{/images/logo.png}" alt="Avatar" style="width:30%" class="w3-circle w3-margin-top">
-        </div>
-
-        <form class="w3-container" th:action="@{/addCompany}" method="post">
-            <div class="w3-section" style="text-align:left">
-                <label><b><span style="color:black;">Company Name</span></b></label>
-                <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter an Company Name"
-                       name="companyName" required>
-
-                <label><b><span style="color:black;">Company Email</span></b></label>
-                <input class="w3-input w3-border w3-margin-bottom" type="email"
-                       placeholder="Enter an Email of the Company" name="email" required>
-
-                <label><b><span style="color:black;">Username</span></b></label>
-                <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Username"
-                       name="username" required>
-                <label><b><span style="color:black">Password</span></b></label>
-                <input class="w3-input w3-border" type="password" placeholder="Enter Password" name="password" required>
-                <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Sign up</button>
-
-
-            </div>
-        </form>
-        <div style="text-align:center">
-            <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-                <button onclick="document.getElementById('id02').style.display='none'" type="button"
-                        class="w3-button w3-red">Cancel
-                </button>
-            </div>
-        </div>
-
-    </div>
-</div>
-</div>
-
-<!-- Footer -->
-<!--
-<footer class="w3-container w3-padding-32 w3-grey">
-</footer>
--->
 
 <div class="w3-black w3-center w3-padding-24" style="padding-left:300px;">
 

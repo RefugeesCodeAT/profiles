@@ -1,5 +1,4 @@
 package at.refugeescode.profiles.controller;
-
 import at.refugeescode.profiles.logic.ProfileService;
 import at.refugeescode.profiles.persistence.model.EmailService;
 import at.refugeescode.profiles.persistence.model.Interests;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import javax.mail.MessagingException;
 import java.util.List;
 import java.util.Optional;
@@ -121,18 +119,18 @@ public class profileController {
         return oneProfile;
     }
 
-    @ModelAttribute("newParticipant")
+    @ModelAttribute("newProfile")
     Profile getNewParticipant() {
         return new Profile();
     }
 
     @PostMapping("addParticipant")
-    String addProfile(@RequestParam("file") MultipartFile file, Profile profile, RedirectAttributes redirectAttributes) {
+    String addProfile(Profile profile, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
         try {
             byte[] bytes = file.getBytes();
-            profile.setPicture(bytes);
-            profile.setSkills(profile.getSkills());
-            profileService.saveProfile(profile);
+            oneProfile.setPicture(bytes);
+            oneProfile.setSkills(profile.getSkills());
+            profileService.saveProfile(oneProfile);
             redirectAttributes.addFlashAttribute("flash.message", "Successfully uploaded");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("flash.message", "Failed to upload");
