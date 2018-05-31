@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
-<title>profiles</title>
+<title>W3.CSS Template</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -27,12 +27,11 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <a href="/" onclick="w3_close()" class="w3-bar-item w3-button">ABOUT US</a>
     <a href="/addParticipant" sec:authorize="hasAuthority('ADMIN')" onclick="w3_close()" class="w3-bar-item w3-button">ADD
         PROFILE</a>
-    <a href="/profiles" onclick="w3_clone()" class="w3-bar-item w3-button">See profiles</a>
-    <a href="/contact" onclick="w3_close()" sec:authorize="hasAuthority('USER')" class="w3-bar-item w3-button">Contact</a>
-    <a href="#" sec:authorize="isAnonymous()" onclick="document.getElementById('id01').style.display='block'"
+    <a href="#" onclick="w3_close()" sec:authorize="hasAuthority('USER')" class="w3-bar-item w3-button">CONTACT</a>
+    <a href="/login" sec:authorize="isAnonymous()" onclick="document.getElementById('id01').style.display='block'"
        class="w3-bar-item w3-button">Sign In</a>
-    <a href="#" sec:authorize="isAnonymous()" onclick="document.getElementById('id02').style.display='block'"
-       class="w3-bar-item w3-button">Sign Up</a>
+    <!--<a href="#" sec:authorize="isAnonymous()" onclick="document.getElementById('id02').style.display='block'"-->
+       <!--class="w3-bar-item w3-button">Sign Up</a>-->
     <form th:action="@{/logout}" method="POST" name="someForm">
         <a href="#" onclick="document.someForm.submit();" class="w3-bar-item w3-button"
            sec:authorize="isAuthenticated()">LogOut</a>
@@ -62,7 +61,7 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <!---->
     <!--<div class="w3-quarter">-->
       <!--<div class="w3-display-container">-->
-      <!--<a href="par-profile.html">-->
+      <!--<a href="par-profile2.html">-->
       <!--<img id="wael" src="../static/img/photo/02_Wael Azar-01.jpg" style="width:100%" alt="Wael Azar - Backend Developer" border="0">-->
       <!--</a>-->
       <!--&lt;!&ndash; w3-display-hover &ndash;&gt;-->
@@ -82,32 +81,35 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <!-- Photo grid -->
     <!-- Photo grid -->
     <div class="w3-row">
-        <div class="w3-quarter" th:each="profile : ${profiles}">
+        <div class="w3-quarter" th:each="pro : ${profiles}">
             <div class="w3-display-container col-sm-4">
 
 
                 <!--<p style="display:none"><input type="text" name="idParticipant" th:value="${profile.id}"/></p>-->
-               <a th:href="@{/profile/{id}(id=${profile.id})}"> <img th:src="@{../imageController/{id}(id=${profile.id})}" style="width:100%"
-                     alt="blue"/></a>
-                <!--<img id="wael" th:src="@{${'/img/' + profile.picPath}}" style="width:100%"
-                                                                       alt="Diaa Alkhatib - Backend Developer">-->
+               <!--<a th:href="@{/profile/{id}(id=${profile.id})}"> <img th:src="@{../imageController/{id}(id=${profile.id})}" style="width:100%"-->
+                     <!--alt="blue"/></a>-->
+
+                <form th:action="@{/profile}" th:method="post" name="someForm">
+                    <button onclick="document.someForm.submit();">
+                        <span style="display:none"><input type="text" name="idParticipant" th:value="${pro.id}"/></span>
+                        <img th:src="@{../imageController/{id}(id=${pro.id})}" style="width:100%"-->
+                   </button>
+                </form>
+
+                    <!--alt="blue"/></a>
+               <!--<img id="wael" th:src="@{${'/img/' + profile.picPath}}" style="width:100%"
+                                                                      alt="Diaa Alkhatib - Backend Developer">-->
 
 
                 <!-- w3-display-hover -->
                 <div class="w3-display-bottommiddle w3-large">
-                    <p th:text="${profile.name}"></p><br/>
-                    <p  th:text="${profile.specialization}">
+                    <p th:text="${pro.name}"></p><br/>
+                    <p  th:text="${pro.specialization}">
                         <br/>
                     </p>
 
                 </div>
             </div>
-            <!--<img th:src="@{/img/12_Nisreen-02.jpg}" style="width:100%" onclick="onClick(this)"-->
-            <!--alt="What a beautiful scenery this sunset">-->
-            <!--<img th:src="@{/img/17_Mohammad-Ghiath-02.jpg}" style="width:100%" onclick="onClick(this)"-->
-            <!--alt="The Beach. Me. Alone. Beautiful">-->
-            <!--<img th:src="@{/img/14_Diaa-04.jpg}" style="width:100%" onclick="onClick(this)"-->
-            <!--alt="The Beach. Me. Alone. Beautiful">-->
         </div>
 
 

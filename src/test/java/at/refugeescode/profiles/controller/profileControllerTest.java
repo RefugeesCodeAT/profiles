@@ -26,7 +26,7 @@ class profileControllerTest {
 
     @Autowired
     ProfilesRepository profilesRepository;
-    
+
     @Test
     void findProfileById() {
         Optional<Profile> nour = profilesRepository.findOneByName("nour");

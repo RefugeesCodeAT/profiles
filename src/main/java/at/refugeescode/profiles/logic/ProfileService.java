@@ -21,6 +21,10 @@ public class ProfileService {
         profileRepository.save(profile);
     }
 
+    public void deleteProfile(Profile profile){
+        profileRepository.delete(profile);
+    }
+
     public List<Profile> findAll(){
         return   profileRepository.findAll();
     }

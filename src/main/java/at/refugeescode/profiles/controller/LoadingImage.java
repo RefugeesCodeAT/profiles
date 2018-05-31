@@ -19,6 +19,7 @@ public class LoadingImage {
     public LoadingImage(ProfileService profileService) {
         this.profileService = profileService;
     }
+
     @RequestMapping(value = "/imageController/{imageId}")
     @ResponseBody
     @GetMapping
