@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
-<title>Profiles</title>
+<title>start</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -28,9 +28,10 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <br><br>
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-hide-large">CLOSE</a>
 
-  <a href="/" onclick="w3_close()" class="w3-bar-item w3-button">ABOUT US</a>
-  <a href="/addParticipant" sec:authorize="hasAuthority('ADMIN')" onclick="w3_close()" class="w3-bar-item w3-button">ADD PROFILE</a>
-  <a href="#" onclick="w3_close()" sec:authorize="hasAuthority('USER')" class="w3-bar-item w3-button">CONTACT</a>
+  <a href="/" onclick="w3_close()" class="w3-bar-item w3-button">About us</a>
+  <a href="/addParticipant" sec:authorize="hasAuthority('ADMIN')" onclick="w3_close()" class="w3-bar-item w3-button">Add profile</a>
+  <a href="/profiles" onclick="w3_clone()" class="w3-bar-item w3-button">See profiles</a>
+  <a href="/contact" onclick="w3_close()" sec:authorize="hasAuthority('USER')" class="w3-bar-item w3-button">Contact</a>
   <a href="#" sec:authorize="isAnonymous()" onclick="document.getElementById('id01').style.display='block'" class="w3-bar-item w3-button">Sign In</a>
   <a href="#" sec:authorize="isAnonymous()" onclick="document.getElementById('id02').style.display='block'" class="w3-bar-item w3-button">Sign Up</a>
   <form th:action="@{/logout}" method="POST" name="someForm">
