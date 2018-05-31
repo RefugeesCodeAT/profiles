@@ -29,16 +29,19 @@ public class SecurityConfigurationCompany extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .antMatchers("/profiles").permitAll()
+                .antMatchers("/participants").permitAll()
                 .antMatchers("/imageController/**").permitAll()
-                .antMatchers("/profile/**").permitAll()
+                .antMatchers("/profile").permitAll()
                 .antMatchers("/addCompany/**").permitAll()
+                .antMatchers("/like").hasAuthority("USER")
+                .antMatchers("/dislike").hasAuthority("USER")
                 .antMatchers("/addParticipant/**").hasAuthority("ADMIN")
                 .antMatchers("/edit/**").hasAuthority("ADMIN")
                 .anyRequest().fullyAuthenticated()
                 .and()
-                .formLogin().loginPage("/login").failureUrl("/").permitAll()
+                .formLogin().loginPage("/login").failureUrl("/login?error").permitAll()
                 .and()
-                .logout().logoutSuccessUrl("/");
+                .logout().permitAll();
     }
 
 
