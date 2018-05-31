@@ -1,24 +1,33 @@
 package at.refugeescode.profiles.persistence.model;
 
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 
 @Entity
+@Component
 public class Profile {
     @Id
     @GeneratedValue
     private Long id;
     private String name;
     private String introduction;
-    private String picPath;
+    private String specialization;
     @Lob
     private byte[] picture;
     private String description;
     @ElementCollection
     private List<String> skills;
     private String githubUrl;
+    private String bio;
+
+    public Profile(String name) {
+        this.name = name;
+    }
 
     public Profile() {
     }
@@ -80,11 +89,34 @@ public class Profile {
         this.githubUrl = githubUrl;
     }
 
-    public String getPicPath() {
-        return picPath;
+    public String getSpecialization() {
+        return specialization;
     }
 
-    public void setPicPath(String picPath) {
-        this.picPath = picPath;
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Profile profile = (Profile) o;
+        return Objects.equals(id, profile.id) &&
+                Objects.equals(name, profile.name);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, name);
     }
 }

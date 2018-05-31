@@ -29,28 +29,22 @@ public class registerController {
         this.company = company;
     }
 
-   // @GetMapping("/addCompany")
-    //String page4(){
-      //  return "addCompany";
-   // }
+    @GetMapping("/error")
+    String errorPage(){
+        return "error";
+    }
 
 
- //   @ModelAttribute("newCompany")
-   // Company getNewCompany(){
-     //   return new Company();
-   // }
 
     @PostMapping("addCompany")
-    String addCompany(@RequestParam String username,@RequestParam String companyName
-    ,@RequestParam String password,@RequestParam String email){
-//        if (bindingResult.hasErrors()) {
-//            return page4();
-//        }
-        System.out.println(username);
-        company.setUsername(username);
-        company.setEmail(email);
-        company.setName(companyName);
-        company.setPassword(passwordEncoder.encode(password));
+    String addCompany(@Valid Company company, BindingResult bindingResult)  {
+        if (bindingResult.hasErrors()) {
+            return errorPage();
+        }
+        company.setUsername(company.getUsername());
+        company.setEmail(company.getEmail());
+        company.setName(company.getName());
+        company.setPassword(passwordEncoder.encode(company.getPassword()));
         company.setAuthorities(Stream.of("USER").collect(Collectors.toSet()));
         companyService.saveCompany(company);
         return "redirect:/";

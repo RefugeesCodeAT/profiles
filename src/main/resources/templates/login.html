@@ -1,0 +1,405 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Animated Form Switching with jQuery</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="description" content="Expand, contract, animate forms with jQuery wihtout leaving the page" />
+    <meta name="keywords" content="expand, form, css3, jquery, animate, width, height, adapt, unobtrusive javascript"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script src="js/cufon-yui.js" type="text/javascript"></script>
+    <script src="js/ChunkFive_400.font.js" type="text/javascript"></script>
+    <script type="text/javascript">
+			Cufon.replace('h1',{ textShadow: '1px 1px #fff'});
+			Cufon.replace('h2',{ textShadow: '1px 1px #fff'});
+			Cufon.replace('h3',{ textShadow: '1px 1px #000'});
+			Cufon.replace('.back');
+		</script>
+    <style>
+        *{
+	margin:0;
+	padding:0;
+}
+body{
+	font-family:"Trebuchet MS", "Myriad Pro", Arial, sans-serif;
+	font-size:14px;
+	background:#f4f4f4 url(../images/bg.gif) repeat top left;
+	color:#333;
+	text-shadow:1px 1px 1px #fff;
+	overflow-y:scroll;
+}
+h1{
+	font-size:56px;
+}
+h2{
+	font-size:20px;
+	padding:0px 0px 40px 0px;
+	color:#aaa;
+}
+h2 span{
+	color:#ffa800;
+}
+a{
+	color:#777;
+}
+a:hover{
+	color:#222;
+}
+p{
+	padding:5px 0px;
+}
+.wrapper{
+	width:960px;
+	margin:20px auto;
+	min-height:550px;
+}
+.box{
+	width:49%;
+}
+.left{
+	float:left;
+}
+.right{
+	float:right;
+}
+.clear{
+	clear:both;
+}
+a.back{
+	color:#777;
+	position:fixed;
+	top:5px;
+	right:10px;
+	text-decoration:none;
+}
+/* Form Style */
+.form_wrapper{
+	background:#fff;
+	border:1px solid #ddd;
+	margin:0 auto;
+	width:350px;
+	font-size:16px;
+	-moz-box-shadow:1px 1px 7px #ccc;
+	-webkit-box-shadow:1px 1px 7px #ccc;
+	box-shadow:1px 1px 7px #ccc;
+}
+.form_wrapper h3{
+	padding:20px 30px 20px 30px;
+	background-color:#444;
+	color:#fff;
+	font-size:25px;
+	border-bottom:1px solid #ddd;
+}
+.form_wrapper form{
+	display:none;
+	background:#fff;
+}
+.form_wrapper .column{
+	width:110%;
+	float:left;
+}
+form.active{
+	display:block;
+}
+form.login{
+	width:450px;
+}
+form.register{
+	width:550px;
+}
+form.forgot_password{
+	width:300px;
+}
+.form_wrapper a{
+	text-decoration:none;
+	color:#777;
+	font-size:12px;
+}
+.form_wrapper a:hover{
+	color:#000;
+}
+.form_wrapper label{
+	display:block;
+	padding:10px 30px 0px 30px;
+	margin:10px 0px 0px 0px;
+}
+.form_wrapper input[type="text"],
+.form_wrapper input[type="password"]{
+	border: solid 1px #E5E5E5;
+	background: #FFFFFF;
+	margin: 5px 30px 0px 30px;
+	padding: 9px;
+	display:block;
+	font-size:16px;
+	width:76%;
+	background:
+		-webkit-gradient(
+			linear,
+			left top,
+			left 25,
+			from(#FFFFFF),
+			color-stop(4%, #EEEEEE),
+			to(#FFFFFF)
+		);
+	background:
+		-moz-linear-gradient(
+			top,
+			#FFFFFF,
+			#EEEEEE 1px,
+			#FFFFFF 25px
+			);
+	-moz-box-shadow: 0px 0px 8px #f0f0f0;
+	-webkit-box-shadow: 0px 0px 8px #f0f0f0;
+	box-shadow: 0px 0px 8px #f0f0f0;
+}
+.form_wrapper input[type="text"]:focus,
+.form_wrapper input[type="password"]:focus{
+	background:#feffef;
+}
+.form_wrapper .bottom{
+	background-color:#444;
+	border-top:1px solid #ddd;
+	margin-top:20px;
+	clear:both;
+	color:#fff;
+	text-shadow:1px 1px 1px #000;
+}
+.form_wrapper .bottom a{
+	display:block;
+	clear:both;
+	padding:10px 30px;
+	text-align:right;
+	color:#ffa800;
+	text-shadow:1px 1px 1px #000;
+}
+.form_wrapper a.forgot{
+	float:right;
+	font-style:italic;
+	line-height:24px;
+	color:#ffa800;
+	text-shadow:1px 1px 1px #fff;
+}
+.form_wrapper a.forgot:hover{
+	color:#000;
+}
+.form_wrapper div.remember{
+	float:left;
+	width:140px;
+	margin:20px 0px 20px 30px;
+	font-size:11px;
+}
+.form_wrapper div.remember input{
+	float:left;
+	margin:2px 5px 0px 0px;
+}
+.form_wrapper span.error{
+	visibility:hidden;
+	color:red;
+	font-size:11px;
+	font-style:italic;
+	display:block;
+	margin:4px 30px;
+}
+
+.form_wrapper input[type="submit"]:hover {
+	background: #d9d9d9;
+	-moz-box-shadow: 0px 0px 2px #eaeaea inset;
+	-webkit-box-shadow: 0px 0px 2px #eaeaea inset;
+	box-shadow: 0px 0px 2px #eaeaea inset;
+	color: #222;
+}
+.button4 {
+ background: #e3e3e3;
+	border: 1px solid #ccc;
+	color: #333;
+	font-family: "Trebuchet MS", "Myriad Pro", sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 8px 0 9px;
+	text-align: center;
+	width: 150px;
+	cursor:pointer;
+	float:right;
+	margin:15px 20px 10px 10px;
+	text-shadow: 0px 1px 0px #fff;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	-moz-box-shadow: 0px 0px 2px #fff inset;
+	-webkit-box-shadow: 0px 0px 2px #fff inset;
+	box-shadow: 0px 0px 2px #fff inset;}
+    </style>
+</head>
+<body>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="wrapper">
+    <center>
+        <div>
+            <p th:if="${param.logout}" class="alert" style="color:red;font-size: large">You have been logged out<br><br> Thank you for visiting our App</p>
+            <p th:if="${param.error}" class="alert alert-error">There was an error, please try again</p>
+        </div>
+    </center>
+    <br>
+    <br>
+    <div class="content">
+        <div id="form_wrapper" class="form_wrapper">
+            <form class="register"  th:action="@{/addCompany}" th:object="${newCompany}" th:method="post" style="border:1px solid #ccc">
+                <h3>Register</h3>
+                <div class="column">
+                    <div>
+                        <label>Company Name:</label>
+                        <input type="text" placeholder="Enter Name" autofocus="autofocus" name="name" required />
+                    </div>
+                    <div>
+                        <label>Username:</label>
+                        <input type="text" placeholder="Enter Username" name="username" required/>
+                        <!--<span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</span>-->
+                    </div>
+                    <div>
+                        <label>Company Email:</label>
+                        <input type="text" placeholder="Enter Email" name="email" required/>
+                    </div>
+                    <div>
+                        <label>Password:</label>
+                        <input type="password" placeholder="Enter Password" name="password" required/>
+                    </div>
+                </div>
+                <br>
+                <div class="bottom">
+                    <div class="remember">
+                        <!--<input type="checkbox" />-->
+                        <!--<span>Send me updates</span>-->
+                    </div>
+                    <button class="button4"  type="submit">Register</button>
+                    <a href="index.html" rel="login" class="linkform">You have an account already? Log in here</a>
+                    <div class="clear"></div>
+                </div>
+            </form>
+
+            <form class="login active" th:action="@{/login}" th:method="POST">
+                <h3>Login</h3>
+                <div>
+                    <label>Username:</label>
+                    <input type="text" name="username" required="required" autofocus="autofocus"/>
+                </div>
+                <div>
+                    <label>Password: <!--<a href="forgot_password.html" rel="forgot_password" class="forgot linkform">Forgot your password?</a>--></label>
+                    <input type="password"  name="password" required />
+                    <span class="error">This is an error</span>
+                </div>
+                <div class="bottom">
+                    <!--<div class="remember"><input type="checkbox" /><span>Keep me logged in</span></div>-->
+                    <button class="button4"  type="submit">Login</button>
+                    <!--<input type="submit" value="login"/>-->
+                    <a href="register.html" rel="register" class="linkform" >You don't have an account yet? Register here</a>
+                    <a href="/"  >Back To Home</a>
+                    <div class="clear"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+            <!--<form class="forgot_password">-->
+                <!--<h3>Forgot Password</h3>-->
+                <!--<div>-->
+                    <!--<label>Username or Email:</label>-->
+                    <!--<input type="text" />-->
+                    <!--<span class="error">This is an error</span>-->
+                <!--</div>-->
+                <!--<div class="bottom">-->
+                    <!--<input type="submit" value="Send reminder">-->
+                    <!--&lt;!&ndash;<a href="index.html" rel="login" class="linkform">Suddenly remebered? Log in here</a>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<a href="register.html" rel="register" class="linkform">You don't have an account? Register here</a>&ndash;&gt;-->
+                    <!--<div class="clear"></div>-->
+                <!--</div>-->
+            <!--</form>-->
+        <!--</div>-->
+        <!--<div class="clear"></div>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+<!-- The JavaScript -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript">
+			$(function() {
+					//the form wrapper (includes all forms)
+				var $form_wrapper	= $('#form_wrapper'),
+					//the current form is the one with class active
+					$currentForm	= $form_wrapper.children('form.active'),
+					//the change form links
+					$linkform		= $form_wrapper.find('.linkform');
+
+				//get width and height of each form and store them for later
+				$form_wrapper.children('form').each(function(i){
+					var $theForm	= $(this);
+					//solve the inline display none problem when using fadeIn fadeOut
+					if(!$theForm.hasClass('active'))
+						$theForm.hide();
+					$theForm.data({
+						width	: $theForm.width(),
+						height	: $theForm.height()
+					});
+				});
+
+				//set width and height of wrapper (same of current form)
+				setWrapperWidth();
+
+				/*
+				clicking a link (change form event) in the form
+				makes the current form hide.
+				The wrapper animates its width and height to the
+				width and height of the new current form.
+				After the animation, the new form is shown
+				*/
+				$linkform.bind('click',function(e){
+					var $link	= $(this);
+					var target	= $link.attr('rel');
+					$currentForm.fadeOut(400,function(){
+						//remove class active from current form
+						$currentForm.removeClass('active');
+						//new current form
+						$currentForm= $form_wrapper.children('form.'+target);
+						//animate the wrapper
+						$form_wrapper.stop()
+									 .animate({
+										width	: $currentForm.data('width') + 'px',
+										height	: $currentForm.data('height') + 'px'
+									 },500,function(){
+										//new form gets class active
+										$currentForm.addClass('active');
+										//show the new form
+										$currentForm.fadeIn(400);
+									 });
+					});
+					e.preventDefault();
+				});
+
+				function setWrapperWidth(){
+					$form_wrapper.css({
+						width	: $currentForm.data('width') + 'px',
+						height	: $currentForm.data('height') + 'px'
+					});
+				}
+
+				/*
+				for the demo we disabled the submit buttons
+				if you submit the form, you need to check the
+				which form was submited, and give the class active
+				to the form you want to show
+				*/
+				$form_wrapper.find('input[type="submit"]')
+							 .click(function(e){
+								e.preventDefault();
+							 });
+			});
+        </script>
+</body>
+</html>

@@ -1,12 +1,13 @@
 package at.refugeescode.profiles;
-
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-@RunWith(SpringRunner.class)
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+
 @SpringBootTest
+@ExtendWith(SpringExtension.class)
 public class ProfilesApplicationTests {
 
 	@Test

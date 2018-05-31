@@ -16,7 +16,7 @@ public class Company {
 
     @NotEmpty
     private String name;
-
+    @Column(unique = true)
     private String username;
 
     private String password;
@@ -33,6 +33,17 @@ public class Company {
 
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> authorities = new HashSet();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Profile> interested = new HashSet<>();
+
+    public Set<Profile> getInterested() {
+        return interested;
+    }
+
+    public void setInterested(Set<Profile> interested) {
+        this.interested = interested;
+    }
 
     public Long getId() {
         return id;

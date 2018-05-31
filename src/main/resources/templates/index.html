@@ -13,6 +13,9 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 .w3-quarter img:hover{opacity: 1}
 .w3-large {width: 80%; /* border:solid 1px #FFF */}
 .w3-display-bottommiddle{  font-size:14px;color:#FF0;text-align:center;font-weight:bold; }
+
+
+
 </style>
 <body class="w3-light-grey w3-content" style="max-width:1600px">
 
@@ -23,18 +26,20 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <img th:src="@{/images/logo.png}" width="200" height="160" border="0"/>
 </a>
   <br><br>
+
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-hide-large">CLOSE</a>
 
   <a href="/" onclick="w3_close()" class="w3-bar-item w3-button">ABOUT US</a>
   <a href="/addParticipant" sec:authorize="hasAuthority('ADMIN')" onclick="w3_close()" class="w3-bar-item w3-button">ADD PROFILE</a>
   <a href="#" onclick="w3_close()" sec:authorize="hasAuthority('USER')" class="w3-bar-item w3-button">CONTACT</a>
-  <a href="#" sec:authorize="isAnonymous()" onclick="document.getElementById('id01').style.display='block'" class="w3-bar-item w3-button">Sign In</a>
-  <a href="#" sec:authorize="isAnonymous()" onclick="document.getElementById('id02').style.display='block'" class="w3-bar-item w3-button">Sign Up</a>
+  <a href="/login" sec:authorize="isAnonymous()" onclick="document.getElementById('id01').style.display='block'" class="w3-bar-item w3-button">Sign In</a>
+  <!--<a href="#" sec:authorize="isAnonymous()" onclick="document.getElementById('id02').style.display='block'" class="w3-bar-item w3-button">Sign Up</a>-->
   <form th:action="@{/logout}" method="POST" name="someForm">
     <a href="#" onclick="document.someForm.submit();" class="w3-bar-item w3-button" sec:authorize="isAuthenticated()">LogOut</a>
   </form>
 
 </nav>
+
 
 <!-- Top menu on small screens -->
 <header class="w3-container w3-top w3-hide-large w3-white w3-xlarge w3-padding-16">
@@ -76,6 +81,7 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
       they support refugees in getting qualified jobs, as well as enabling persons entitled to asylum status to lead a self-determined life.
       </p>
       
+
       <div style="text-align:center">
       
       <!--<a href='#' onclick="document.getElementById('id01').style.display='none'">&lt;!&ndash; onclick="document.getElementById('id01').style.display='block'"&ndash;&gt;-->
@@ -84,9 +90,17 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         <!--<a href="#" >-->
           <!--<img th:src="@{}" width="156" height="138" border="0">-->
         <!--</a>-->
-        <a href="/profiles">
-        <button type="button" class="btn btn-primary" >see Participants</button>
+        <a href="/participants">
+
+        <!--<button type="button" class="btn btn-primary" >see Participants</button>-->
+
+          <img th:src="@{/images/par.png}"
+            onmouseover="this.src='../images/par-active.png'"
+            onmouseout="this.src='../images/par.png'"/>
+
         </a>
+
+
 
       </div>
       <br><br><br><br><br><br><br><br><br><br>
@@ -94,74 +108,74 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   
   <!-- Sign In -->
 
-  <div id="id01" class="w3-modal">
-    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+  <!--<div id="id01" class="w3-modal">-->
+    <!--<div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">-->
 
-      <div class="w3-center"><br>
-        <span class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
-        <img th:src="@{/images/logo.png}" alt="Avatar" style="width:30%" class="w3-circle w3-margin-top">
-      </div>
+      <!--<div class="w3-center"><br>-->
+        <!--<span class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>-->
+        <!--<img th:src="@{/images/logo.png}" alt="Avatar" style="width:30%" class="w3-circle w3-margin-top">-->
+      <!--</div>-->
 
-      <div>
+      <!--<div>-->
 
-        <form class="w3-container" name="form" th:action="@{/login}" action="login" method="POST">
-          <div class="w3-section">
-            <label><b><span style="color:black" >Username</span></b></label>
-            <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Username" name="username" required>
-            <label><b><span style="color:black">Password</span></b></label>
-            <input class="w3-input w3-border" type="password" placeholder="Enter Password" name="password" required>
-            <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Sign in</button>
-            <input class="w3-check w3-margin-top" type="checkbox" checked="checked">  <span style="color:black">Remember me</span>
-          </div>
-        </form>
-      </div>
-
-
-      <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-        <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
-        <span class="w3-right w3-padding w3-hide-small">Forgot <a href="#">password?</a></span>
-      </div>
-
-    </div>
-  </div>
-</div>
+        <!--<form class="w3-container" name="form" th:action="@{/login}" action="login" method="POST">-->
+          <!--<div class="w3-section">-->
+            <!--<label><b><span style="color:black" >Username</span></b></label>-->
+            <!--<input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Username" name="username" required>-->
+            <!--<label><b><span style="color:black">Password</span></b></label>-->
+            <!--<input class="w3-input w3-border" type="password" placeholder="Enter Password" name="password" required>-->
+            <!--<button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Sign in</button>-->
+            <!--<input class="w3-check w3-margin-top" type="checkbox" checked="checked">  <span style="color:black">Remember me</span>-->
+          <!--</div>-->
+        <!--</form>-->
+      <!--</div>-->
 
 
-  <!-- Sign Up -->
-  <div id="id02" class="w3-modal">
-    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+      <!--<div class="w3-container w3-border-top w3-padding-16 w3-light-grey">-->
+        <!--<button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>-->
+        <!--<span class="w3-right w3-padding w3-hide-small">Forgot <a href="#">password?</a></span>-->
+      <!--</div>-->
 
-      <div class="w3-center"><br>
-        <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
-        <img th:src="@{/images/logo.png}" alt="Avatar" style="width:30%" class="w3-circle w3-margin-top">
-      </div>
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
 
-      <form class="w3-container" th:action="@{/addCompany}"  method="post">
-        <div class="w3-section" style="text-align:left">
-          <label><b><span style="color:black;">Company Name</span></b></label>
-          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter an Company Name" name="companyName" required>
 
-          <label><b><span style="color:black;">Company Email</span></b></label>
-          <input class="w3-input w3-border w3-margin-bottom" type="email" placeholder="Enter an Email of the Company" name="email" required>
-                 
-          <label><b><span style="color:black;">Username</span></b></label>
-          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Username" name="username" required>
-          <label><b><span style="color:black">Password</span></b></label>
-          <input class="w3-input w3-border" type="password" placeholder="Enter Password" name="password" required>
-          <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Sign up</button>
-          
-        
-        </div>
-      </form>
-	  <div style="text-align:center">
-          <div class="w3-container w3-border-top w3-padding-16 w3-light-grey" >
-            <button onclick="document.getElementById('id02').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
-          </div>
-	  </div>
-     
-    </div>
-  </div>
-</div>
+  <!--&lt;!&ndash; Sign Up &ndash;&gt;-->
+  <!--<div id="id02" class="w3-modal">-->
+    <!--<div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">-->
+
+      <!--<div class="w3-center"><br>-->
+        <!--<span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>-->
+        <!--<img th:src="@{/images/logo.png}" alt="Avatar" style="width:30%" class="w3-circle w3-margin-top">-->
+      <!--</div>-->
+
+      <!--<form class="w3-container" th:action="@{/addCompany}"  method="post">-->
+        <!--<div class="w3-section" style="text-align:left">-->
+          <!--<label><b><span style="color:black;">Company Name</span></b></label>-->
+          <!--<input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter an Company Name" name="companyName" required>-->
+
+          <!--<label><b><span style="color:black;">Company Email</span></b></label>-->
+          <!--<input class="w3-input w3-border w3-margin-bottom" type="email" placeholder="Enter an Email of the Company" name="email" required>-->
+                 <!---->
+          <!--<label><b><span style="color:black;">Username</span></b></label>-->
+          <!--<input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Username" name="username" required>-->
+          <!--<label><b><span style="color:black">Password</span></b></label>-->
+          <!--<input class="w3-input w3-border" type="password" placeholder="Enter Password" name="password" required>-->
+          <!--<button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Sign up</button>-->
+          <!---->
+        <!---->
+        <!--</div>-->
+      <!--</form>-->
+	  <!--<div style="text-align:center">-->
+          <!--<div class="w3-container w3-border-top w3-padding-16 w3-light-grey" >-->
+            <!--<button onclick="document.getElementById('id02').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>-->
+          <!--</div>-->
+	  <!--</div>-->
+     <!---->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
 
   <!-- Footer -->
   <!--

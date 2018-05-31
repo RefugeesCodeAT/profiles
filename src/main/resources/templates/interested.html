@@ -1,0 +1,45 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml"  xmlns:th="http://www.thymeleaf.org">-->
+
+
+<!--<head>-->
+    <!--<meta charset="UTF-8">-->
+    <!--<title>intersted</title>-->
+<!--</head>-->
+<!--<body>-->
+
+
+<!--<table>-->
+    <!--<thead>-->
+    <!--<tr>-->
+        <!--<th>name</th>-->
+    <!--</tr>-->
+    <!--</thead>-->
+    <!--<tbody>-->
+    <!--<tr th:each="profile : ${profiles}">-->
+        <!--<td th:text="${profile.name}">name</td>-->
+
+        <!--<form th:unless="${interestedParticipants.contains(profile)}" th:action="@{/like}"  th:method="post">-->
+            <!--<td style="display:none"><input type="text" name="id" th:value="${profile.id}"/></td>-->
+            <!--<button>I'm Interested</button>-->
+            <!--&lt;!&ndash;th:unless="${interestedParticipants.contains(profile)}"&ndash;&gt;-->
+            <!--&lt;!&ndash;th:if="${interestedParticipants.contains(profile)}"&ndash;&gt;-->
+            <!--&lt;!&ndash;<a href="#">&ndash;&gt;-->
+            <!--&lt;!&ndash;<img th:src="@{../images/interested.png}"&ndash;&gt;-->
+            <!--&lt;!&ndash;onmouseover="this.src='../images/interested-active.png'"&ndash;&gt;-->
+            <!--&lt;!&ndash;onmouseout="this.src='../images/interested.png'" width="63" height="63" title="interested" border="0" alt=""/>&ndash;&gt;-->
+            <!--&lt;!&ndash;</a>&ndash;&gt;-->
+        <!--</form>-->
+        <!--<form th:if="${interestedParticipants.contains(profile)}" th:action="@{/dislike}"  th:method="post">-->
+            <!--&lt;!&ndash; <td style="display:none"><input type="text" name="idCompany" th:value="${list.showCompanyId()}"/></td>&ndash;&gt;-->
+            <!--<td style="display:none"><input type="text" name="id" th:value="${profile.id}"/></td>-->
+            <!--<input type="submit"  value="I'm not Interested">-->
+        <!--</form>-->
+
+    <!--</tr>-->
+    <!--</tbody>-->
+<!--</table>-->
+
+
+<!--</body>-->
+<!--</html>-->

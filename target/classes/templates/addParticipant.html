@@ -84,6 +84,12 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
           <input class="w3-input w3-border" type="text" placeholder="Enter Name" th:field="*{name}" required>
         </div>
         <div class="w3-section">
+
+          <label>specialization</label>
+          <!--input  type="text" name="Name" required-->
+          <input class="w3-input w3-border" type="text" placeholder="Enter specialization" th:field="*{specialization}" required>
+        </div>
+        <div class="w3-section">
           <label>Github Account</label>
           <!--input class="w3-input w3-border" type="text" name="Email" required-->
           <input class="w3-input w3-border" type="text" th:field="*{githubUrl}" placeholder="Enter Github Account"/>
@@ -97,6 +103,10 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
           <label>Description</label>
           <!--input class="w3-input w3-border" type="text" name="Email" required-->
           <input class="w3-input w3-border" type="text" th:field="*{description}" placeholder="Enter a description"/>
+        </div>
+        <div class="w3-section">
+        <label>skills, (separate with [, ]:)</label>
+        <input class="w3-input w3-border" type="text" th:field="*{skills}" placeholder="Enter a skills"/>
         </div>
         <button type="submit" class="w3-button w3-block w3-black w3-margin-bottom">Add Profile</button>
       </form>
