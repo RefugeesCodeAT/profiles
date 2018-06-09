@@ -1,492 +1,343 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>demo</title>
-    <style>
+<html  xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<title>Profile</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+.w3-quarter img{margin-bottom: -6px; opacity: 0.8; cursor: pointer}
+.w3-quarter img:hover{opacity: 1}
+.w3-large {width: 80%; /* border:solid 1px #FFF */}
+.w3-display-bottommiddle{  font-size:14px;color:#FF0;text-align:center;font-weight:bold; }
+</style>
+<body class="w3-light-grey w3-content" style="max-width:1600px">
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-bar-block w3-white w3-animate-left w3-text-grey w3-collapse w3-top w3-center" style="z-index:3;width:300px;font-weight:bold" id="mySidebar"><br>
+<a href="#" style="text-decoration:none">
+  <img th:src="@{/images/logo.png}" width="200" height="160" border="0">
+</a>  
+  <br><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-hide-large">CLOSE</a>
+  <a href="/" onclick="w3_close()" class="w3-bar-item w3-button">ABOUT US</a>
+  <a href="/addParticipant" sec:authorize="hasAuthority('ADMIN')" onclick="w3_close()" class="w3-bar-item w3-button">ADD
+    PROFILE</a>
+  <a href="#" onclick="w3_close()" sec:authorize="hasAuthority('USER')" class="w3-bar-item w3-button">CONTACT</a>
+  <a href="/login" sec:authorize="isAnonymous()" class="w3-bar-item w3-button">Sign In</a>
+  <!--<a href="#" sec:authorize="isAnonymous()" onclick="document.getElementById('id02').style.display='block'"-->
+     <!--class="w3-bar-item w3-button">Sign Up</a>-->
+    <form th:action="@{/logout}" method="POST" name="someForm">
+        <a href="#" onclick="document.someForm.submit();" class="w3-bar-item w3-button" sec:authorize="isAuthenticated()">LogOut</a>
+    </form>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-white w3-xlarge w3-padding-16">
+  <span class="w3-left w3-padding">Profile</span>
+  <a href="javascript:void(0)" class="w3-right w3-button w3-white" onclick="w3_open()">☰</a>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px">
+
+  <!-- Push down content on small screens --> 
+  <div class="w3-hide-large" style="margin-top:83px"></div>
+  
+   <div class="w3-row">
+    
+	<!-- Profile page -->
+    <div class="w3-content w3-margin-top" style="max-width:1400px;">
+    
+    <div class="w3-container w3-left w3-margin-top">
+    
+    <div style="text-decoration:none;">
+      <a href="/participants">Participents</a> >> <span th:text="${profile.name}" ></span>
+    </div>
+
+
+   <br>
+        <ui >
+            <li th:text="${profile.description}">
+
+            </li>
+        </ui>
 
-body {
-    margin: 0px;
-    padding: 0px;
-    background-color: inherit;
-    font-size: 16px;
-    font-family: "Trebuchet MS", Helvetica, sans-serif;
-    color: #000;
-}
-
-a:link {
-    text-decoration: underline;
-    color: #000;
-    font-weight: bold;
-}
-
-a:visited {
-    text-decoration: underline;
-    color: #000;
-    font-weight: bold;
-}
-
-a:hover {
-    text-decoration: underline;
-    color: #669933;
-    font-weight: bold;
-}
-
-a:active {
-    text-decoration: underline;
-    color: #000;
-    font-weight: bold;
-}
-
-#wrapper    {
-    width: 965px;
-    margin: 0 auto;
-}
-
-#content {
-    background-color: #eee;
-    width: 960px;
-    text-align: left;
-    overflow: auto;
-    position: relative;
-    margin: 25px 0px 25px 0px;
-    border: #fff solid 2px;
-}
-
-.clear  {
-    float: none;
-    clear: both;
-    margin: 20px 0px 20px 0px;
-}
-
-
-/* Header
---------------------------------------------------- */
-
-
-#contact-details .header_1 {
-    float: left;
-    width: 350px;
-    text-align: center;
-    margin: 40px 0px 0px 20px;
-}
-
-#contact-details .header_1 img {
-    border: #fff solid 4px;
-    background: url("../images/bg_img_dark_green.png");
-    padding: 16px;
-    margin: 10px 0px 0px 0px;
-}
-
-#contact-details .header_2 {
-    float: left;
-    width: 570px;
-    margin: 40px 0px 0px 10px;
-}
-
-#contact-details .header_2 a {
-    font-weight: normal;
-}
-
-#contact-details  h1    {
-    margin: 50px;
-    font-size: 47px;
-    font-weight: bold;
-}
-
-#contact-details  h3    {
-    margin: 0px 0px 32px 20px;
-    font-size: 30px;
-    font-weight: bold;
-    font-style: italic;
-     text-align: center;
-}
-
-#contact-details ul.info_1  {
-    list-style: none;
-    margin: 0px 0px 0px -12px;
-    font-size: 18px;
-}
-
-#contact-details ul.info_2  {
-    list-style: none;
-    margin: 0px 0px 15px -12px;
-    font-size: 18px;
-}
-
-#contact-details li.address {
-    background: url("../images/home.png") no-repeat;
-    background-position: 0px 0px;
-    padding: 0px 0px 12px 40px;
-}
-
-#contact-details li.phone   {
-    background: url("../images/phone.png") no-repeat;
-    background-position: 0px 0px;
-    padding: 0px 0px 12px 40px;
-}
-
-#contact-details li.email   {
-    background: url("../images/mail.png") no-repeat;
-    background-position: 0px 0px;
-    padding: 0px 0px 12px 40px;
-}
-
-#contact-details li.site_url    {
-    background: url("../images/computer.png") no-repeat;
-    background-position: 0px 2px;
-    padding: 0px 0px 12px 40px;
-}
-
-#contact-details li.twitter {
-    background: url("../images/twitter_sm.png") no-repeat;
-    background-position: 0px 0px;
-    padding: 0px 0px 12px 40px;
-}
-
-
-
-/* Main Content
---------------------------------------------------- */
-
-h2.top  {
-    margin: 0px;
-    font-size: 22px;
-    font-weight: bold;
-}
-
-h2  {
-    margin: 40px 0px 0px 0px;
-    font-size: 22px;
-    font-weight: bold;
-}
-
-
-dl  {
-    margin: 0px 50px 0px 0px;
-}
-
-
-dt  {
-    float: left;
-    width: 200px;
-    font-size: 20px;
-    font-weight: bold;
-    font-style: italic;
-    text-align: right;
-}
-
-dd  {
-    width: 620px;
-    float: right;
-    margin-right: 20px;
-}
-
-dl#contact  {
-    margin: 0px;
-}
-
-dt#contact  {
-    margin: 0px;
-}
-
-dd#contact  {
-    margin: 0px;
-}
-
-p.bus1  {
-    margin: 0px;
-    font-weight: bold;
-    color: #669933;
-}
-
-p.edu-info  {
-    margin: 10px 0px 0px 0px;
-    font-weight: bold;
-    color: #669933;
-}
-
-p.edu-info a    {
-    color: #000;
-}
-
-p.edu-info a:hover  {
-    color: #669933;
-}
-
-p.time  {
-    margin: 0px;
-}
-
-p.summary   {
-    margin: 10px 0px 0px 0px;
-}
-
-
-#skills ul.list1    {
-    float: left;
-    list-style: none;
-    margin: 0px 0px 0px -40px;
-    width: 220px;
-}
-
-#skills ul.list2    {
-    float: left;
-    list-style: none;
-    margin: 0px 0px 0px 0px;
-    width: 220px;
-}
-
-#skills li {
-    background: url("../images/bullet_green.png") no-repeat;
-    background-position: 0px 2px;
-    padding: 0px 0px 0px 25px;
-}
-
-abbr    {
-    border-width: 0px;
-}
-
-
-/* Footer
---------------------------------------------------- */
-
-#footer {
-    margin: 60px 40px 0px 40px;
-}
-
-#footer img {
-    border: 0px;
-}
-
-#footer .footer_content {
-    width: 700px;
-    overflow: auto;
-    margin: auto;
-    border: #fff solid 2px;
-    background-color: #dcdcdc;
-}
-
-#footer ul.icons_1  {
-    float: left;
-    width: 525px;
-    margin: 15px 10px 10px 15px;
-    padding: 0px;
-}
-
-#footer ul.icons_2  {
-    float: right;
-    width: 100px;
-    margin: 10px 20px 10px 10px;
-    padding: 0px;
-}
-
-#footer .icons_1 li, #footer .icons_2 li {
-    margin: 0px 0px 0px 7px;
-    padding: 0px;
-    list-style-type: none;
-    display: inline;
-}
-
-#footer a   {
-    color: #000;
-}
-
-#footer a:hover {
-    color: #669933;
-}
-
-#footer .credits {
-    float: none;
-    clear: both;
-    margin: 10px 0px 20px 0px;
-    font-size: 12px;
-    text-align: center;
-}
-
-#footer .credits a  {
-    font-weight: normal;
-}
-    </style>
-</head>
-
-<!-- Begin Wrapper -->
-<div id="wrapper">
-
-    <!-- Begin Content Area -->
-    <div id="content">
-
-        <!-- Begin Header -->
-        <header>
-
-            <!-- Begin Contact Section -->
-            <section id="contact-details">
-
-                <!-- Begin Profile Image Section -->
-                <div class="header_1" >
-                    <img th:src="@{../imageController/{id}(id=${profile.id})}" height="300" width="400"  style="width:100%" alt="Your Name" />
-                </div>
-                <!-- End Profile Image Section -->
-
-                <!-- Begin Profile Information Section -->
-                <div class="header_2">
-
-                    <h1><span th:text="${profile.name}">Your Name</span></h1>
-                    <h3 th:text="${profile.introduction} + ' Developer'">Web Developer</h3>
-
-                    <!--<ul class="info_1">-->
-                        <!--<li class="address" th:text="${profile.address}">555 Street Address, Toledo, Ohio, 43606  U.S.A.</li>-->
-                    <!--</ul>-->
-
-                    <ul class="info_2">
-
-                        <li class="email" ><a th:href="${profile.githubUrl}" >Github Account</a></li>
-
-                    </ul>
-
-                </div>
-                <!-- End Profile Information Section -->
-
-            </section>
-            <!-- End Contact Section -->
-
-        </header>
-        <!-- End Header -->
-
-        <div class="clear">&nbsp;</div>
-
-        <!-- Begin Profile Section -->
-        <dl>
-            <dt>Profile:</dt>
-            <dd>
-
-                <section class="summary">
-                    I am a Junior software developer specializing in Java. I had previously worked in Syria as a Petroleum Engineer. A determined problem-solver, I enjoy being challenged and aim to apply my skills to creating innovative software solutions.
-                </section>
-
-            </dd>
-        </dl>
-        <!-- End Profile Section -->
-
-        <div class="clear">&nbsp;</div>
-
-        <!-- Begin Skills Section -->
-
-        <dl>
-            <dt>Skills:</dt>
-            <dd>
-
-                <section id="skills">
-                    <ul class="list1">
-                        <li>HTML5</li>
-                        <li>PHP</li>
-                        <li>Java</li>
-                        <li>WordPress</li>
-                    </ul>
-                </section>
-
-            </dd>
-        </dl>
-
-        <!-- End Skills Section -->
-
-        <div class="clear">&nbsp;</div>
-
-        <!-- Begin Experience Section -->
-        <dl>
-            <dt>Experience:</dt>
-
-            <dd>
-
-                <section id="experience">
-
-                    <!-- Position #1 -->
-
-                    <h2 class="top">Web Developer / Designer</h2>
-                    <p class="bus1">Company Name 1</p>
-                    <p class="time">February 2009 &#45; Present</p>
-
-                    <p>
-                        Senior Operator
-                        	In charge of a frictionless and safe production process.
-                        	Overall observation and troubleshooting of production.
-                    </p>
-                </section>
-
-            </dd>
-        </dl>
-        <!-- End Experience Section -->
-
-
-        <div class="clear">&nbsp;</div>
-
-        <!-- Begin Education Section -->
-        <dl>
-            <dt>Education:</dt>
-            <dd>
-
-                <section id="education">
-                    <p class="bus1" th:text="${profile.description}">University of Toledo</p>
-
-                    2801 Bancroft Street
-                    <br />
-                    Toledo, Ohio, 43606  U.S.A.
-
-                    <p class="summary">Web Design</p>
-                    <p class="time">2003 &#45; 2005</p>
-
-                    <p class="edu-info">
-                        <a href="http://www.utoledo.edu/" target="_blank" title="University of Toledo">www.utoledo.edu</a>
-                    </p>
-
-                </section>
-
-            </dd>
-        </dl>
-        <!-- End Education Section -->
-
-        <div class="clear">&nbsp;</div>
-
-
-        <!-- Begin Footer -->
-
-        <footer id="footer">
-
-            <!-- Begin Footer Content -->
-            <div class="footer_content">
-
-                <!-- Begin Schema Person -->
-                <!--
-                <ul class="icons_1">
-                    <li><a href="https://profiles.google.com/jwagner719" title="Google Profile"><img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32" alt="Google Profile"></a></li>
-                    <li><a href="http://dribbble.com/" title="Dribbble"><img src="images/dribbble.png" width="32" height="32" alt="Dribbble" /></a></li>
-                    <li><a href="http://www.linkedin.com/" title="LinkedIn"><img src="images/linkedin.png" width="32" height="32" alt="LinkedIn" /></a></li>
-                    <li><a href="http://www.facebook.com/" title="Facebook"><img src="images/facebook.png" width="32" height="32" alt="Facebook" /></a></li>
-                    <li><a href="http://www.flickr.com/" title="Flickr"><img src="images/flickr.png" width="32" height="32" alt="Flickr" /></a></li>
-                    <li><a href="http://twitter.com/" title="Follow Me on Twitter!"><img src="images/twitter.png" width="32" height="32" alt="Follow Me on Twitter!" /></a></li>
-                </ul>
-
-                <ul class="icons_2">
-                    <li><a href="resume.pdf" title="Download Resume PDF"><img src="images/download.png" width="48" height="48" alt="Download Resume PDF" /></a></li>
-                </ul>
-            -->
-                <!-- End Schema Person -->
-
-            </div>
-            <!-- End Footer Content -->
-
-            <div class="credits">
-                Copy Right by <a href="http://www.refugeescode.at/" target="_blank" title="RefugeesCode">Mohammad Almosleh</a>
-            </div>
-
-        </footer>
-        <!-- End Footer -->
 
     </div>
-    <!-- End Content -->
+    
+      <!-- The Grid -->
+      <div class="w3-row-padding">
+      
+        <!-- Left Column -->
+        <div class="w3-third">
+        
+          <div class="w3-white w3-text-grey w3-card-4">
+            <div class="w3-display-container w3-center">
+              <img th:src="@{../imageController/{id}(id=${profile.id})}" style="width:180px;height:270px" alt="Avatar">
+              <div class="w3-display-bottommiddle w3-container w3-text-yellow">
+                <h4><b></b></h4>
+              </div>
+            </div>
+            <div class="w3-container">
+              <p ><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Name:<span th:text="${profile.name}"></span></p>
+              <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>Location: Austria, wien</p>
+              <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i><a th:href="@{https://{path}(path=(profile.githubUrl)}">GitHub</a></p>
+  //
+              <!--<p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>ex@mail.com</p>-->
+              <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>refugeescode number</p>
+              <hr>
+    
+              <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Skills</b></p>
+              <p>Adobe Photoshop</p>
+              <div class="w3-light-grey w3-round-xlarge w3-small">
+                <div class="w3-container w3-center w3-round-xlarge w3-teal" >Good</div>
+              
+                
+              </div>
+              <p>Photography</p>
+              <div class="w3-light-grey w3-round-xlarge w3-small">
+                <div class="w3-container w3-center w3-round-xlarge w3-teal" >
+                  <div class="w3-center w3-text-white">Good</div>
+                </div>
+              </div>
+              <p>Illustrator</p> 
+              <div class="w3-light-grey w3-round-xlarge w3-small">
+                <div class="w3-container w3-center w3-round-xlarge w3-teal">Good</div>
+              </div>
+              <p>Media</p>
+              <div class="w3-light-grey w3-round-xlarge w3-small">
+                <div class="w3-container w3-center w3-round-xlarge w3-teal" >Good</div>
+              </div>
+              <br>
+    
+              <p class="w3-large w3-text-theme"><b><i class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Languages</b></p>
+              <p>English</p>
+              <div class="w3-light-grey w3-round-xlarge">
+                <div class="w3-round-xlarge w3-teal w3-center" style="height:24px;">Good</div>
+              </div>
+              <p>Spanish</p>
+              <div class="w3-light-grey w3-round-xlarge">
+                <div class="w3-round-xlarge w3-teal w3-center" style="height:24px;">Good</div>
+              </div>
+              <p>German</p>
+              <div class="w3-light-grey w3-round-xlarge">
+                <div class="w3-round-xlarge w3-teal w3-center"  style="height:24px;">Good</div>
+              </div>
+              <br>
+            </div>
+          </div><br>
+    
+        <!-- End Left Column -->
+        </div>
+    
+        <!-- Right Column -->
+        <div class="w3-twothird">
+        
+          <div class="w3-container w3-card w3-white w3-margin-bottom">
+            <div class="w3-text-grey w3-padding-20" style="padding:20px 0 0px 16px ;">
 
+                <form th:unless="${interestedParticipants.contains(profile)}" th:action="@{/like}" th:method="post" sec:authorize="hasAuthority('USER')">
+                    <span style="display:none"><input type="text" name="id" th:value="${profile.id}"/></span>
+                    <span class="glyphicon glyphicon-thumbs-up"></span> Like
+                    <input  type="submit" value="I'm Interested" class="btn btn-default btn-sm">
+                    </span>
+                </form>
+
+                <form th:if="${interestedParticipants.contains(profile)}" th:action="@{/dislike}" th:method="post"sec:authorize="hasAuthority('USER')">
+                    <span style="display:none"><input type="text" name="id" th:value="${profile.id}"/></span>
+                    <span class="glyphicon glyphicon-thumbs-down"></span> Like
+                    <span><input type="submit"  value="I'm not Interested" class="btn btn-default btn-sm"></span>
+                </form>
+
+                <form sec:authorize="!isAuthenticated()" th:action="@{/like}" th:method="post">
+                    <span style="display:none"><input type="text" name="id" th:value="${profile.id}"/></span>
+                    <span class="glyphicon glyphicon-thumbs-up"></span> Like
+                    <input  type="submit" value="I'm Interested" class="btn btn-default btn-sm">
+                </form>
+
+                <form  th:action="@{/delete}" th:method="post" sec:authorize="hasAuthority('ADMIN')">
+                    <p>Delete Profile :
+                    <span style="display:none"><input type="text" name="id" th:value="${profile.id}"/></span>
+                        <button class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-remove"></span> Trash
+                        </button>
+                    </p>
+                </form>
+
+
+                <form th:action="@{/update}" th:method="post"  sec:authorize="hasAuthority('ADMIN')">
+                    <p>Edit Profile:
+                    <span style="display:none"><input type="text" name="id" th:value="${profile.id}"/></span>
+                <span class="glyphicon glyphicon-edit"></span> Edit
+                    <input type="submit" value="Edit"  class="btn btn-default btn-sm">
+                    </p>
+                </form>
+
+
+
+            </div>
+              <!--<ui th:each="profile : ${participants}">-->
+                  <!--<li th:text="${profile.name}"></li>-->
+              <!--</ui>-->
+
+              <div>
+
+              </div>
+
+            <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i></h2>
+            <div class="w3-container">
+              <h5 class="w3-opacity"><b >Introduction: </b></h5>
+              <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Jan 2015 - <span class="w3-tag w3-teal w3-round">Current</span></h6>
+              <p th:text="${profile.introduction}"></p>
+              <hr>
+            </div>
+            <div class="w3-container">
+              <h5 class="w3-opacity"><b >Description: </b></h5>
+              <!--<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Mar 2012 - Dec 2014</h6>-->
+              <p th:text="${profile.description}">Consectetur adipisicing elit. Praesentium magnam consectetur vel in deserunt aspernatur est reprehenderit sunt hic. Nulla tempora soluta ea et odio, unde doloremque repellendus iure, iste.</p>
+              <hr>
+            </div>
+            <!--<div class="w3-container">-->
+              <!--<h5 class="w3-opacity"><b >Graphic Designer / designsomething.com</b></h5>-->
+              <!--&lt;!&ndash;<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Jun 2010 - Mar 2012</h6>&ndash;&gt;-->
+              <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p><br>-->
+            <!--</div>-->
+          </div>
+    
+          <div class="w3-container w3-card w3-white">
+            <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Bio:</h2>
+            <div class="w3-container">
+              <!--<h5 class="w3-opacity"><b>W3Schools.com</b></h5>-->
+              <!--<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Forever</h6>-->
+              <p>Web Development! All I need to know in one place what what are we doing can i do it like this or not or what should i do for the end how is our life going on and how am i sppusosf todafsi  </p>
+              <hr>
+            </div>
+            <!--<div class="w3-container">-->
+              <!--<h5 class="w3-opacity"><b>London Business School</b></h5>-->
+              <!--<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2013 - 2015</h6>-->
+              <!--<p>Master Degree</p>-->
+              <!--<hr>-->
+            <!--</div>-->
+            <!--<div class="w3-container">-->
+              <!--<h5 class="w3-opacity"><b>School of Coding</b></h5>-->
+              <!--<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2010 - 2013</h6>-->
+              <!--<p>Bachelor Degree</p><br>-->
+            <!--</div>-->
+          <!--</div>-->
+    
+        <!-- End Right Column -->
+        </div>
+        
+      <!-- End Grid -->
+      </div>
+      
+      <!-- End Page Container -->
+    </div>
+    
+<br>
+
+    
+  </div>
+  
+  <!-- Modal for full size images on click-->
+  <div id="modal01" class="w3-modal w3-black" style="padding-top:0" onclick="this.style.display='none'">
+    <span class="w3-button w3-black w3-xlarge w3-display-topright">×</span>
+    <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
+      <img id="img01" class="w3-image">
+      <p id="caption"></p>
+    </div>
+  </div>
+
+  
+  <!-- Sign In -->
+  <!--<div id="id01" class="w3-modal">-->
+    <!--<div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">-->
+
+      <!--<div class="w3-center"><br>-->
+        <!--<span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>-->
+        <!--<img src="https://www.w3schools.com/w3css/img_avatar3.png" alt="Avatar" style="width:30%" class="w3-circle w3-margin-top">-->
+      <!--</div>-->
+
+      <!--<form class="w3-container" action="/action_page.php">-->
+        <!--<div class="w3-section">-->
+          <!--<label><b><span style="color:black">Username</span></b></label>-->
+          <!--<input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Username" name="usrname" required>-->
+          <!--<label><b><span style="color:black">Password</span></b></label>-->
+          <!--<input class="w3-input w3-border" type="password" placeholder="Enter Password" name="psw" required>-->
+          <!--<button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Sign in</button>-->
+          <!--<input class="w3-check w3-margin-top" type="checkbox" checked="checked">  <span style="color:black">Remember me</span>-->
+        <!--</div>-->
+      <!--</form>-->
+
+      <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+        <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
+        <span class="w3-right w3-padding w3-hide-small">Forgot <a href="#">password?</a></span>
+      </div>
+
+    </div>
+  </div>
 </div>
-<!-- End Wrapper -->
+
+
+  <!-- Sign Up -->
+  <!--<div id="id02" class="w3-modal">-->
+    <!--<div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">-->
+
+      <!--<div class="w3-center"><br>-->
+        <!--<span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>-->
+        <!--<img src="https://www.w3schools.com/w3css/img_avatar3.png" alt="Avatar" style="width:30%" class="w3-circle w3-margin-top">-->
+      <!--</div>-->
+
+      <!--<form class="w3-container" action="/action_page.php">-->
+        <!--<div class="w3-section" style="text-align:left">-->
+          <!--<label><b><span style="color:black;">Company Name</span></b></label>-->
+          <!--<input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter an Company Name" name="cname" required> -->
+
+          <!--<label><b><span style="color:black;">Company Email</span></b></label>-->
+          <!--<input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter an Email of the Company" name="email" required>           -->
+                 <!---->
+          <!--<label><b><span style="color:black;">Username</span></b></label>-->
+          <!--<input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Username" name="usrname" required>-->
+          <!--<label><b><span style="color:black">Password</span></b></label>-->
+          <!--<input class="w3-input w3-border" type="password" placeholder="Enter Password" name="psw" required>-->
+          <!--<button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Sign up</button>-->
+          <!---->
+        <!---->
+        <!--</div>-->
+      <!--</form>-->
+	  <!--<div style="text-align:center">-->
+          <!--<div class="w3-container w3-border-top w3-padding-16 w3-light-grey" >-->
+            <!--<button onclick="document.getElementById('id02').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>-->
+          <!--</div>-->
+	  <!--</div>-->
+     <!---->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+
+  <!-- Footer -->
+  <!--
+  <footer class="w3-container w3-padding-32 w3-grey"> 
+  </footer>
+  -->
+  
+  <div class="w3-black w3-center w3-padding-24" style="padding-left:300px;">
+  
+  Powered by <a href="https://www.refugeescode.at" title="Refugeescode" target="_blank" class="w3-hover-opacity" style="text-decoration:none;">Refugees{code} in 2018</a>
+  
+  </div>
+
+<!-- End page content -->
+</div>
+
 
 </body>
 </html>
