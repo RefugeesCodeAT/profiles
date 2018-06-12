@@ -20,7 +20,7 @@ public class Profile {
     @Lob
     private byte[] picture;
     private String description;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> skills;
     private String githubUrl;
     private String bio;
