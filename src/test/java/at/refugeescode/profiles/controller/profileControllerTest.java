@@ -33,7 +33,7 @@ class profileControllerTest {
         Profile profile = new Profile();
         profile.setName(name);
         profilesRepository.save(profile);
-        
+
         Optional<Profile> nour = profilesRepository.findOneByName(name);
         assertNotNull(nour);
         assertEquals(name, nour.get().getName());

@@ -1,12 +1,4 @@
 spring:
-  datasource:
-    url: ${MYSQL_URL}
-    username: ${MYSQL_USERNAME}
-    password: ${MYSQL_PASSWORD}
-  jpa:
-      hibernate:
-        ddl-auto: update
-
   resources:
     static-locations[0]: file:src/main/resources/static/
     static-locations[1]: classpath:/static/
