@@ -29,9 +29,14 @@ class profileControllerTest {
 
     @Test
     void findProfileById() {
-        Optional<Profile> nour = profilesRepository.findOneByName("nour");
+        String name = "nour";
+        Profile profile = new Profile();
+        profile.setName(name);
+        profilesRepository.save(profile);
+        
+        Optional<Profile> nour = profilesRepository.findOneByName(name);
         assertNotNull(nour);
-        assertEquals("nour", nour.get().getName());
+        assertEquals(name, nour.get().getName());
     }
 
     @Test
