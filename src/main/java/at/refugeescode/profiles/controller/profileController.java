@@ -8,10 +8,8 @@ import at.refugeescode.profiles.security.AdminPrincipal;
 import at.refugeescode.profiles.security.UserPrincipal;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.mail.MessagingException;
@@ -23,15 +21,13 @@ import java.util.stream.Collectors;
 @Controller
 public class profileController {
 
-    Profile participant = new Profile();
+
     private ProfileService profileService;
-    private Profile oneProfile;
     private Interests interests;
     private EmailService emailService;
 
-    public profileController(ProfileService profileService, Profile oneProfile, Interests interests, EmailService emailService) {
+    public profileController(ProfileService profileService,Interests interests, EmailService emailService) {
         this.profileService = profileService;
-        this.oneProfile = oneProfile;
         this.interests = interests;
         this.emailService = emailService;
     }
@@ -56,14 +52,14 @@ public class profileController {
         //log.info("Spring Mail - Sending Email with Inline Attachment Example");
         Mail mail = new Mail();
         mail.setFrom("no-reply@memorynotfound.com");
-        mail.setTo("mohammadalmosleh66@gmail.com");
+        mail.setTo("mohammad.sawas2016@gmail.com");
         //mail.setTo(CompanyUsername.get().getEmail());
         mail.setSubject("Sending Email with Inline Attachment Example");
         mail.setContent(principal.getCompany().getName() + " is very interested in " + par.get().getName());
         emailService.sendSimpleMessage(mail);
 
         interests.interested(userId, participantId);
-        return "redirect:/profile";
+        return "redirect:" + "profile" + "/"+ participantId;
     }
 
     //@Secured("ROLE_USER")
@@ -84,25 +80,25 @@ public class profileController {
         return "redirect:/profile";
     }
 
-//    @GetMapping("/profile/{id}")
-//    String findProfileById(@PathVariable Long id, Model model) {
-//        Optional<Profile> profile = profileService.findOne(id);
-//        if (!profile.isPresent()) {
-//            return "redirect:/profiles";
-//        }
-//        model.addAttribute("profile", profile.get());
-//        return "profile";
-//    }
+    @GetMapping("/profile/{id}")
+    String findProfileById(@PathVariable Long id, Model model) {
+        Optional<Profile> profile = profileService.findOne(id);
+        if (!profile.isPresent()) {
+            return "redirect:/participants";
+        }
+        model.addAttribute("profile", profile.get());
+        return "profile";
+    }
 
     @GetMapping("/addParticipant")
     String page() {
         return "addParticipant";
     }
 
-    @GetMapping("/profile")
-    String showParticipants() {
-        return "profile";
-    }
+//    @GetMapping("/profile")
+//    String showParticipants() {
+//        return "profile";
+//    }
 
     @GetMapping("/participants")
     String showParticipant() {
@@ -116,7 +112,7 @@ public class profileController {
 
     @ModelAttribute("profile")
     Profile profile() {
-        return oneProfile;
+        return new Profile();
     }
 
     @ModelAttribute("newProfile")
@@ -128,9 +124,9 @@ public class profileController {
     String addProfile(Profile profile, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
         try {
             byte[] bytes = file.getBytes();
-            oneProfile.setPicture(bytes);
-            oneProfile.setSkills(profile.getSkills());
-            profileService.saveProfile(oneProfile);
+            profile.setPicture(bytes);
+            profile.setSkills(profile.getSkills());
+            profileService.saveProfile(profile);
             redirectAttributes.addFlashAttribute("flash.message", "Successfully uploaded");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("flash.message", "Failed to upload");
@@ -146,47 +142,65 @@ public class profileController {
 
     @ModelAttribute("p")
     Profile editParticipant() {
-        return participant;
+        return new Profile();
     }
 
-
-    @PostMapping("update")
-    String goedit(@RequestParam String id) {
-        Optional<Profile> oldParticipant = profileService.findAll().stream()
-                .filter(participant1 -> participant1.getId().toString().equalsIgnoreCase(id))
-                .findFirst();
-        participant = oldParticipant.get();
-        return "redirect:/edit";
-    }
-
-    @PostMapping("/edit")
-    public String updateParticipant(@RequestParam String name, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
-
+    @PostMapping("/edit/{id}")
+    String edit(@PathVariable Long id,@RequestParam String name, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes){
+        Optional<Profile> one = profileService.findOne(id);
+        Profile profile = one.get();
         try {
             if (!file.isEmpty()) {
                 byte[] bytes = file.getBytes();
-                participant.setPicture(bytes);
+                profile.setPicture(bytes);
             }
-            participant.setSkills(participant.getSkills());
-            participant.setName(name);
-            profileService.saveProfile(participant);
+            profile.setSkills(null);
+            profile.setName(name);
+            profileService.saveProfile(profile);
             redirectAttributes.addFlashAttribute("flash.message", "Successfully uploaded");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("flash.message", "Failed to upload");
             return "You failed to upload because " + " => " + e.getMessage();
         }
-        return "redirect:/participants";
+        return "redirect:/edit";
     }
+//    @PostMapping("update")
+//    String goedit(@RequestParam String id) {
+//        Optional<Profile> oldParticipant = profileService.findAll().stream()
+//                .filter(participant1 -> participant1.getId().toString().equalsIgnoreCase(id))
+//                .findFirst();
+//        new Profile() = oldParticipant.get();
+//        return "redirect:/edit";
+//    }
+//
+//    @PostMapping("/edit")
+//    public String updateParticipant(@RequestParam String name, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+//
+//        try {
+//            if (!file.isEmpty()) {
+//                byte[] bytes = file.getBytes();
+//                participant.setPicture(bytes);
+//            }
+//            participant.setSkills(participant.getSkills());
+//            participant.setName(name);
+//            profileService.saveProfile(participant);
+//            redirectAttributes.addFlashAttribute("flash.message", "Successfully uploaded");
+//        } catch (Exception e) {
+//            redirectAttributes.addFlashAttribute("flash.message", "Failed to upload");
+//            return "You failed to upload because " + " => " + e.getMessage();
+//        }
+//        return "redirect:/participants";
+//    }
 
 
-    @PostMapping("/profile")
-    String goProfile(@RequestParam String idParticipant) {
-        List<Profile> collect = profileService.findAll().stream()
-                .filter(participant -> participant.getId().toString().equalsIgnoreCase(idParticipant))
-                .collect(Collectors.toList());
-        oneProfile = collect.get(0);
-        return "redirect:profile";
-    }
+//    @GetMapping("/profile/{id}")
+//    String goProfile(@PathVariable String id) {
+//        List<Profile> collect = profileService.findAll().stream()
+//                .filter(participant -> participant.getId().toString().equalsIgnoreCase(id))
+//                .collect(Collectors.toList());
+//        oneProfile = collect.get(0);
+//        return "redirect:profile";
+//    }
 
     @PostMapping("/delete")
     String deleteToDo(String id) {
@@ -196,5 +210,4 @@ public class profileController {
         }
         return "redirect:/participants";
     }
-
 }
