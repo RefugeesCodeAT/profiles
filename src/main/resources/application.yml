@@ -1,11 +1,11 @@
 spring:
   datasource:
-#    url: ${MYSQL_URL}
-#    username: ${MYSQL_USERNAME}
-#    password: ${MYSQL_PASSWORD}
-    url: jdbc:mysql://localhost:3306/profiles?tinyInt1isBit=false
-    username: root
-    password:
+    url: ${MYSQL_URL}
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
+#    url: jdbc:mysql://localhost:3306/profiles?tinyInt1isBit=false
+ #   username: root
+  #  password:
   jpa:
       hibernate:
         ddl-auto: update
