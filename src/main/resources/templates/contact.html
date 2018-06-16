@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <title>Contact</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,16 +17,20 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-bar-block w3-white w3-animate-left w3-text-grey w3-collapse w3-top w3-center" style="z-index:3;width:300px;font-weight:bold" id="mySidebar"><br>
 <a href="#" style="text-decoration:none">
-  <img th:src="@{/img/logo.png}" width="200" height="160" border="0">
+  <img th:src="@{/images/logo.png}" width="200" height="160" border="0">
 </a>  
   <br><br>
-
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-hide-large">CLOSE</a>
-  <a href="index.html" onclick="w3_close()" class="w3-bar-item w3-button">ABOUT US</a> 
-  <a href="contact.html" onclick="w3_close()" class="w3-bar-item w3-button">CONTACT</a>
-  <a href="login2.html"  class="w3-bar-item w3-button">SIGN IN</a>
-  <!-- onclick="document.getElementById('id01').style.display='block'"-->
-  <a href="#SignUp" onclick="document.getElementById('id02').style.display='block'" class="w3-bar-item w3-button">SIGN UP</a>
+
+  <a href="/" onclick="w3_close()" class="w3-bar-item w3-button">About us</a>
+  <a href="/addParticipant" sec:authorize="hasAuthority('ADMIN')" onclick="w3_close()" class="w3-bar-item w3-button">Add profile</a>
+  <a href="/participants" onclick="w3_close()" class="w3-bar-item w3-button">See profiles</a>
+  <a href="/contact" onclick="w3_close()" sec:authorize="hasAuthority('USER')" class="w3-bar-item w3-button">Contact</a>
+  <a href="/login" sec:authorize="isAnonymous()" onclick="document.getElementById('id01').style.display='block'" class="w3-bar-item w3-button">Sign in</a>
+  <!--<a href="#" sec:authorize="isAnonymous()" onclick="document.getElementById('id02').style.display='block'" class="w3-bar-item w3-button">Sign Up</a>-->
+  <form th:action="@{/logout}" method="POST" name="someForm">
+    <a href="#" onclick="document.someForm.submit();" class="w3-bar-item w3-button" sec:authorize="isAuthenticated()">Log out</a>
+  </form>
 </nav>
 
 <!-- Top menu on small screens -->
@@ -65,7 +69,7 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <div class="w3-container w3-light-grey w3-padding-32 w3-padding-large" id="contact">
     <div class="w3-content" style="max-width:600px">
     <div style="text-align:center">
-    <img th:src="@{/img/contact.png}" alt="Me" class="w3-image w3-padding-32" width="300" height="187">
+    <img th:src="@{/images/contact.jpg}" alt="Me" class="w3-image w3-padding-32" width="300" height="187">
     </div> 
     <!--
       <h4 class="w3-center"><b><p>Feel free to contact us.</p></b></h4>

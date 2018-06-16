@@ -24,17 +24,16 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     </a>
     <br><br>
     <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-hide-large">CLOSE</a>
-    <a href="/" onclick="w3_close()" class="w3-bar-item w3-button">ABOUT US</a>
-    <a href="/addParticipant" sec:authorize="hasAuthority('ADMIN')" onclick="w3_close()" class="w3-bar-item w3-button">ADD
-        PROFILE</a>
-    <a href="#" onclick="w3_close()" sec:authorize="hasAuthority('USER')" class="w3-bar-item w3-button">CONTACT</a>
-    <a href="/login" sec:authorize="isAnonymous()" onclick="document.getElementById('id01').style.display='block'"
-       class="w3-bar-item w3-button">Sign In</a>
-    <!--<a href="#" sec:authorize="isAnonymous()" onclick="document.getElementById('id02').style.display='block'"-->
-       <!--class="w3-bar-item w3-button">Sign Up</a>-->
-    <!--<form th:action="@{/logout}" method="POST" name="someForm">-->
-        <!--<a href="#" onclick="document.someForm.submit();" class="w3-bar-item w3-button" sec:authorize="isAuthenticated()">LogOut</a>-->
-    <!--</form>-->
+
+    <a href="/" onclick="w3_close()" class="w3-bar-item w3-button">About us</a>
+    <a href="/addParticipant" sec:authorize="hasAuthority('ADMIN')" onclick="w3_close()" class="w3-bar-item w3-button">Add profile</a>
+    <a href="/participants" onclick="w3_close()" class="w3-bar-item w3-button">See profiles</a>
+    <a href="/contact" onclick="w3_close()" sec:authorize="hasAuthority('USER')" class="w3-bar-item w3-button">Contact</a>
+    <a href="/login" sec:authorize="isAnonymous()" onclick="document.getElementById('id01').style.display='block'" class="w3-bar-item w3-button">Sign in</a>
+    <!--<a href="#" sec:authorize="isAnonymous()" onclick="document.getElementById('id02').style.display='block'" class="w3-bar-item w3-button">Sign Up</a>-->
+    <form th:action="@{/logout}" method="POST" name="someForm">
+        <a href="#" onclick="document.someForm.submit();" class="w3-bar-item w3-button" sec:authorize="isAuthenticated()">Log out</a>
+    </form>
 </nav>
 
 <!-- Top menu on small screens -->
@@ -88,12 +87,10 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
                <!--<a th:href="@{/profile/{id}(id=${profile.id})}"> <img th:src="@{../imageController/{id}(id=${profile.id})}" style="width:100%"-->
                      <!--alt="blue"/></a>-->
 
-                <form th:action="@{/profile}" th:method="post" name="someForm">
-                    <button onclick="document.someForm.submit();">
-                        <span style="display:none"><input type="text" name="idParticipant" th:value="${pro.id}"/></span>
-                        <img th:src="@{../imageController/{id}(id=${pro.id})}" style="width:100%"-->
-                   </button>
-                </form>
+                <a th:href="@{/profile/{id}(id=${pro.id})}">
+                    <img th:src="@{../imageController/{id}(id=${pro.id})}" style="width:100%"
+                                                                      alt="blue"/></a>
+
 
                     <!--alt="blue"/></a>
                <!--<img id="wael" th:src="@{${'/img/' + profile.picPath}}" style="width:100%"

@@ -31,7 +31,7 @@ public class SecurityConfigurationCompany extends WebSecurityConfigurerAdapter {
                 .antMatchers("/profiles").permitAll()
                 .antMatchers("/participants").permitAll()
                 .antMatchers("/imageController/**").permitAll()
-                .antMatchers("/profile").permitAll()
+                .antMatchers("/profile/**").permitAll()
                 .antMatchers("/addCompany/**").permitAll()
                 .antMatchers("/like").hasAuthority("USER")
                 .antMatchers("/dislike").hasAuthority("USER")
