@@ -37,4 +37,8 @@ public class ProfileService {
         return profileRepository.findOneByName(name);
     }
 
+    void editOneProfile(Profile profile){
+
+    }
+
 }
