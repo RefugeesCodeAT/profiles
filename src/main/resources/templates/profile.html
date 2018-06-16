@@ -68,7 +68,7 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
             <div class="w3-container w3-left w3-margin-top">
 
                 <div style="text-decoration:none;">
-                    <a href="/profiles">Participents</a> >> <span th:text="${profile.name}"></span>
+                    <a href="/participants">Participents</a> >> <span th:text="${profile.name}"></span>
                 </div>
                 <br>
 
@@ -157,14 +157,17 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
                             </form>
 
 
-                            <form th:action="@{/edit/{id}(id=${profile.id})}" th:method="post" sec:authorize="hasAuthority('ADMIN')">
-                                <p>Edit Profile:
-                                    <span style="display:none"><input type="text" name="id"
-                                                                      th:value="${profile.id}"/></span>
-                                    <span class="glyphicon glyphicon-edit"></span> Edit
-                                    <input type="submit" value="Edit" class="btn btn-default btn-sm">
-                                </p>
-                            </form>
+                            <!--<form th:action="@{/edit/{id}(id=${profile.id})}" th:method="post" sec:authorize="hasAuthority('ADMIN')">-->
+                                <!--<p>Edit Profile:-->
+                                    <!--<span style="display:none"><input type="text" name="id"-->
+                                                                      <!--th:value="${profile.id}"/></span>-->
+                                    <!--<span class="glyphicon glyphicon-edit"></span> Edit-->
+                                    <!--<input type="submit" value="Edit" >-->
+                                <!--</p>-->
+                            <!--</form>-->
+                            <p sec:authorize="hasAuthority('ADMIN')">Edit profile:
+                                <span class="glyphicon glyphicon-edit"></span>
+                            <a th:href="@{/edit/{id}(id=${profile.id})}"> <button type="submit" class="btn btn-default btn-sm" sec:authorize="hasAuthority('ADMIN')">edit</button></a></p>
 
                         </div>
                         <!--<h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i></h2>-->

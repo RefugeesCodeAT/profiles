@@ -70,7 +70,7 @@ public class profileController {
         Optional<Profile> par = profileService.findOne(participantId);
         Mail mail = new Mail();
         mail.setFrom("no-reply@memorynotfound.com");
-        mail.setTo("mohammadalmosleh66@gmail.com");
+        mail.setTo("mohammad.sawas2016@gmail.com");
         //mail.setTo(CompanyUsername.get().getEmail());
         mail.setSubject("Sending Email with Inline Attachment Example");
         mail.setContent(principal.getCompany().getName() + " is NOT interested in " + par.get().getName());
@@ -135,35 +135,41 @@ public class profileController {
         return "redirect:/participants";
     }
 
-    @GetMapping("/edit")
-    String editPage() {
-        return "editParticipant";
-    }
+//    @GetMapping("/edit/{id}")
+//    String editPage(@PathVariable Long id, Model model) {
+//        Optional<Profile> profile = profileService.findOne(id);
+//        if (!profile.isPresent()) {
+//            return "redirect:/participants";
+//        }
+//        model.addAttribute("profile", profile.get());
+//
+//        return "editParticipant";
+//    }
 
-    @ModelAttribute("p")
-    Profile editParticipant() {
-        return new Profile();
-    }
+//    @ModelAttribute("p")
+//    Profile editParticipant() {
+//        return new Profile();
+//    }
 
-    @PostMapping("/edit/{id}")
-    String edit(@PathVariable Long id,@RequestParam String name, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes){
-        Optional<Profile> one = profileService.findOne(id);
-        Profile profile = one.get();
-        try {
-            if (!file.isEmpty()) {
-                byte[] bytes = file.getBytes();
-                profile.setPicture(bytes);
-            }
-            profile.setSkills(null);
-            profile.setName(name);
-            profileService.saveProfile(profile);
-            redirectAttributes.addFlashAttribute("flash.message", "Successfully uploaded");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("flash.message", "Failed to upload");
-            return "You failed to upload because " + " => " + e.getMessage();
-        }
-        return "redirect:/edit";
-    }
+//    @PostMapping("/edit/{id}")
+//    String edit(@PathVariable Long id,@RequestParam String name, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes){
+//        Optional<Profile> one = profileService.findOne(id);
+//        Profile profile = one.get();
+//        try {
+//            if (!file.isEmpty()) {
+//                byte[] bytes = file.getBytes();
+//                profile.setPicture(bytes);
+//            }
+//            profile.setSkills(null);
+//            profile.setName(name);
+//            profileService.saveProfile(profile);
+//            redirectAttributes.addFlashAttribute("flash.message", "Successfully uploaded");
+//        } catch (Exception e) {
+//            redirectAttributes.addFlashAttribute("flash.message", "Failed to upload");
+//            return "You failed to upload because " + " => " + e.getMessage();
+//        }
+//        return "redirect:/edit";
+//    }
 //    @PostMapping("update")
 //    String goedit(@RequestParam String id) {
 //        Optional<Profile> oldParticipant = profileService.findAll().stream()
